@@ -2,8 +2,10 @@
 
 A hands-on, beginner-first learning repo for **Amazon Bedrock Managed Agents
 (BMA), powered by OpenAI**. It starts from the basics and builds up, one module
-at a time. Right now it covers Module 1: running agents with **no execution
-environment** (`environment: {"type": "none"}`).
+at a time. It covers Module 1 (running agents with **no execution
+environment**, `environment: {"type": "none"}`) and Module 2 (running agents on
+an **AgentCore Runtime**, where the agent executes commands in a managed
+microVM).
 
 > **Public preview.** BMA is in preview. APIs, request/response shapes, default
 > models, and Region availability can change, and some endpoints behave
@@ -53,22 +55,36 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 │   └── skills/
 │       └── bma-sessions/         # Codex skill: drive the labs conversationally
 └── modules/
-    └── 01-bma-environment-none/  # Module 1: agents with environment=none
+    ├── 01-bma-environment-none/  # Module 1: agents with environment=none
+    │   ├── README.md             # module overview + lab index
+    │   ├── 00-prerequisites.md   # install, credentials, IAM setup
+    │   ├── setup.py              # create the module's Python virtualenv
+    │   ├── preflight.py          # read-only "verify you're ready" check (identity/region/role/IAM)
+    │   ├── requirements.txt      # openai[bedrock], boto3
+    │   ├── bma_common.py         # shared client/role helpers used by every lab
+    │   ├── scripts/
+    │   │   └── create_session_role.py  # create the BMA session role (least privilege)
+    │   └── labs/
+    │       ├── lab-01-create-session/
+    │       ├── lab-02-interpret-results/
+    │       ├── lab-03-session-state/
+    │       ├── lab-04-list-sessions/
+    │       ├── lab-05-delete-session/
+    │       └── lab-06-agentcore-gateway/
+    └── 02-bma-agentcore-runtime/ # Module 2: agents on an AgentCore Runtime
         ├── README.md             # module overview + lab index
-        ├── 00-prerequisites.md   # install, credentials, IAM setup
+        ├── 00-prerequisites.md   # provision Runtime, venv, bearer auth, IAM
         ├── setup.py              # create the module's Python virtualenv
-        ├── preflight.py          # read-only "verify you're ready" check (identity/region/role/IAM)
-        ├── requirements.txt      # openai[bedrock], boto3
-        ├── bma_common.py         # shared client/role helpers used by every lab
+        ├── preflight.py          # read-only "verify you're ready" check (identity/region/runtime/role/IAM)
+        ├── requirements.txt      # openai[bedrock], boto3, aws-bedrock-token-generator
+        ├── bma_common.py         # shared client/role/runtime helpers used by every lab
         ├── scripts/
-        │   └── create_session_role.py  # create the BMA session role (least privilege)
+        │   └── create_session_role.py  # create BmaSessionRole-<region> (least privilege)
         └── labs/
-            ├── lab-01-create-session/
+            ├── lab-01-run-on-runtime/
             ├── lab-02-interpret-results/
-            ├── lab-03-session-state/
-            ├── lab-04-list-sessions/
-            ├── lab-05-delete-session/
-            └── lab-06-agentcore-gateway/
+            ├── lab-03-continue-session/
+            └── lab-04-delete-session/
 ```
 
 ## Modules
@@ -76,9 +92,7 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 | Module | Focus / Key learning | Level | Est. time |
 |---|---|---|---|
 | [01 — BMA with `environment=none`](modules/01-bma-environment-none/README.md) | Create a session, interpret results and items, prove durable server-side session state, list and delete sessions, and (stretch) wire in AgentCore Gateway MCP tools — all without an execution environment. | Beginner | ~30–60 min |
-
-More modules (self-hosted and AgentCore Runtime execution environments) will
-follow.
+| [02 — BMA with AgentCore Runtime](modules/02-bma-agentcore-runtime/README.md) | Run agents in a real execution environment where the agent executes commands in a managed microVM: run on a Runtime, read `command_execution` items, continue a session as the workspace persists, and clean up. | Intermediate | ~30–60 min |
 
 ## Use it from Codex (optional)
 
@@ -107,9 +121,5 @@ example prompts.
 
 ## License
 
-This repository is dual-licensed:
-
-- **Code** is licensed under the [MIT No Attribution (MIT-0)](LICENSE) license.
-- **Documentation and text content** is licensed under the
-  [Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA 4.0)](LICENSE-DOCS.md)
-  license.
+This repository is licensed under the MIT-0 (MIT No Attribution) license. See
+[LICENSE](LICENSE).

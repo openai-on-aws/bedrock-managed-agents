@@ -10,6 +10,21 @@ the session APIs, so it is where we start.
 > **Public preview.** APIs, default models, and Region availability can change.
 > See the [prerequisites doc](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-managed-agents-openai-prerequisites.html).
 
+## What this module covers
+
+Your code (or a lab script) calls the **BMA session API** with a
+**SigV4-signed** request — no OpenAI API key. BMA keeps the conversation in a
+**durable, server-side session** (`sess_...`) and, by assuming the **session
+role**, runs **model inference** on your behalf. With `environment = none`
+there is **no sandbox**: the agent reasons and calls inference but runs no code
+or local tools. You read the result back as **items** — `message`, `reasoning`,
+and (in the stretch Gateway lab) `mcp_call`. Lab 06 adds the optional dashed
+path: when the agent decides to use a tool, **BMA** invokes the **AgentCore
+Gateway**'s MCP tool service-side (`bedrock-agentcore:InvokeGateway` on the
+session role) and records the result as an `mcp_call` item.
+
+![BMA with environment=none: your agent client code starts or continues a session via the SigV4-signed BMA session API; BMA assumes the session role and runs model inference via Amazon Bedrock, optionally invoking an AgentCore Gateway MCP tool; BMA records items (message, reasoning, mcp_call) on the durable server-side session, which the client reads back.](images/architecture.png)
+
 ## Prerequisites
 
 Do the one-time setup first: install Python 3.12+ and the AWS CLI v2, configure

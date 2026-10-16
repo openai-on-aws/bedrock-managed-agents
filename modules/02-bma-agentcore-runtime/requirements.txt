@@ -1,0 +1,11 @@
+# Tested with openai[bedrock] 3.29.0, boto3 1.43.112, and
+# aws-bedrock-token-generator 1.1.0 (Python 3.12+); bump as the BMA preview
+# evolves. Soft lower-bound pins so a fresh install is reproducible without
+# freezing you to an exact patch release.
+#
+# aws-bedrock-token-generator mints the short-lived bearer token Module 2 uses
+# to authenticate to BMA (see bma_common.make_client), instead of Module 1's
+# SigV4 request signing.
+openai[bedrock]>=3.26.1
+boto3>=1.43.110
+aws-bedrock-token-generator>=1.1.0

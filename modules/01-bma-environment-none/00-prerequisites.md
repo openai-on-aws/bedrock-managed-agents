@@ -17,7 +17,7 @@ involves, and two ways to create the session role.
 > cross-platform, so everything runs natively on **macOS, Linux and Windows**
 > — no Bash or WSL required. The commands below are shown in macOS/Linux form;
 > **Windows** differs only in the venv activation command and backslash paths.
-> See [Running on Windows](#running-on-windows-powershell) for the details.
+> See [Running on Windows](#running-on-windows-powershell--windows-only) for the details.
 
 > **Handling output.** The labs print what you send and receive — your prompts,
 > the session id, the resolved role ARN, and (with `--json`) full session items
