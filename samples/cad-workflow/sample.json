@@ -1,0 +1,55 @@
+{
+  "schema_version": "bma-cad/sample/v1",
+  "id": "cad-workflow-freecad",
+  "readme": "README.md",
+  "working_directory": "samples/cad-workflow",
+  "backend": "freecad",
+  "example": "examples/support-bracket.json",
+  "schemas": {
+    "example": "schemas/example.schema.json",
+    "e2e_report": "schemas/e2e-report.schema.json",
+    "reference": "schemas/reference.schema.json"
+  },
+  "commands": {
+    "install": ["uv", "sync", "--frozen"],
+    "install_guard": ["uv", "run", "--frozen", "python", "install_guard.py"],
+    "validate_offline": ["uv", "run", "--frozen", "python", "deploy.py", "validate"],
+    "deploy_and_test": ["uv", "run", "--frozen", "python", "e2e.py", "--deploy"],
+    "test_existing": ["uv", "run", "--frozen", "python", "e2e.py", "--existing-stack"],
+    "verify_saved_run": ["uv", "run", "--frozen", "python", "evidence.py", "verify-run"],
+    "verify_reference": ["uv", "run", "--frozen", "python", "evidence.py", "verify-reference"]
+  },
+  "live_arguments": {
+    "required": ["--account", "--stack"],
+    "optional": ["--profile", "--example"],
+    "deployment_only": ["--hours", "--model", "--vpc-id", "--subnet-id"],
+    "region": "us-east-1",
+    "default_model": "openai.gpt-6.1-sol",
+    "default_example": "examples/support-bracket.json"
+  },
+  "result_contract": {
+    "stdout": "jsonl",
+    "terminal_event": "e2e_finished",
+    "report_path_field": "report",
+    "success_status": "passed",
+    "report_path_pattern": ".state/e2e/{job_id}/report.json",
+    "artifacts_path_pattern": "artifacts/{job_id}",
+    "exit_codes": {"0": "passed", "1": "execution or qualification failed", "2": "invalid CLI arguments"}
+  },
+  "side_effects": {
+    "deploy_creates_billable_resources": true,
+    "both_live_modes_invoke_billable_bma": true,
+    "test_session_deleted_after_evidence_export": true,
+    "selected_worker_stopped_after_test": true,
+    "stack_deleted": false,
+    "ebs_s3_and_logs_retained": true
+  },
+  "reference_directory": "examples/support-bracket/reference",
+  "limits": {
+    "part_family": "bounded support bracket",
+    "cad_uploads": false,
+    "arbitrary_code": false,
+    "catia_v6_implemented": false,
+    "engineering_signoff": false
+  }
+}

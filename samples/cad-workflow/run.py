@@ -23,8 +23,10 @@ from cad_workflow.contract import (
 ROOT = Path(__file__).resolve().parent
 TERMINAL = {"completed", "failed", "cancelled"}
 INSTRUCTIONS = """You operate a bounded native CAD workflow. The user supplies a job ID and
-dimensions. Call create_support once with exactly those values. If it returns pending,
-call get_result until it returns accepted or failed, at most 15 times. Never invent an
+dimensions. Call create_support once with exactly those values. Then call get_result
+at least once to retrieve the published receipt, even if create_support already
+returned accepted. If it is pending, call get_result until it returns accepted or
+failed, at most 15 times in total. Never invent an
 artifact, measurement, or successful check. If verification fails, report the error.
 If it succeeds, state the native files, blind pocket depth, floor thickness, and checks.
 Do not substitute free text for a tool call. Do not submit a different job ID."""
@@ -203,6 +205,8 @@ def run_bma(profile, region, outputs, parameters, destination):
                 raise RuntimeError("BMA turn did not complete; inspect bma-turns.json")
             if not any(item.get("name", "").endswith("create_support") for item in tools):
                 raise RuntimeError("BMA did not call the native CAD creation tool; inspect bma-items.json")
+            if not any(item.get("name", "").endswith("get_result") for item in tools):
+                raise RuntimeError("BMA did not retrieve the native CAD result; inspect bma-items.json")
             return receipt
         finally:
             if timer is not None:

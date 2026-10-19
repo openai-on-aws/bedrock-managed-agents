@@ -38,3 +38,5 @@ jobs:
         run: uv run --frozen python install_guard.py
       - name: Run offline sample validation
         run: uv run --frozen python deploy.py validate
+      - name: Verify the recorded CAD reference
+        run: uv run --frozen python evidence.py verify-reference

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bma-cad:example:v1",
+  "title": "Bounded support-part example",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "title", "backend", "parameters", "expected"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "bma-cad/example/v1"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "backend": {"const": "freecad"},
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stock_thickness_mm", "pocket_depth_mm"],
+      "properties": {
+        "stock_thickness_mm": {"type": "number", "minimum": 10, "maximum": 20},
+        "pocket_depth_mm": {"type": "number", "minimum": 1, "maximum": 18}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["floor_mm", "required_checks"],
+      "properties": {
+        "floor_mm": {"type": "number", "minimum": 2, "maximum": 19},
+        "required_checks": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "native_solid", "native_features", "constrained_sketches",
+              "blind_pocket", "stock_thickness", "units_and_envelope",
+              "material_and_mounting_interfaces", "analytic_volume",
+              "residual_floor", "step_roundtrip", "native_parameter_roundtrip"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

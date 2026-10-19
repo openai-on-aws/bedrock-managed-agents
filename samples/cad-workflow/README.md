@@ -1,3 +1,12 @@
+---
+sample_id: cad-workflow-freecad
+machine_manifest: sample.json
+example: examples/support-bracket.json
+example_schema: schemas/example.schema.json
+run_report_schema: schemas/e2e-report.schema.json
+reference_manifest: examples/support-bracket/reference/verified-example.json
+---
+
 # CAD workflow with Bedrock Managed Agents
 
 Use **Amazon Bedrock Managed Agents (BMA), powered by OpenAI**, to call CAD tools
@@ -28,6 +37,70 @@ runtime, automation integration and qualification.
 [Editable AWS diagram](docs/architecture.drawio) ·
 [Verification and grader audit](docs/verification.md)
 
+## Start here
+
+- **Inspect the result:** [the verified example](#the-verified-support-bracket-example)
+  includes a preview, native FreeCAD file, STEP file and JSON evidence.
+- **Run the complete test:** [the single-command workflow](#run-the-complete-example)
+  provisions or uses a worker, runs BMA and the audit, exports logs and stops compute.
+- **Integrate automation:** [`sample.json`](sample.json) describes commands,
+  arguments, side effects, report locations and exit codes.
+- **Understand or modify it:** see [what runs where](#what-runs-where),
+  [native checks](docs/verification.md), and the [backend interface](docs/adding-a-backend.md).
+
+## The verified support-bracket example
+
+This repository includes the output of a real BMA/FreeCAD run, qualified on
+**19 October 2026 in `us-east-1`**. The part is synthetic example geometry;
+it is not a customer design or a manufactured component.
+
+![Verified FreeCAD support bracket with three mounting bores and a capsule blind pocket.](examples/support-bracket/reference/preview.png)
+
+[Editable FreeCAD model](examples/support-bracket/reference/support.FCStd) ·
+[STEP export](examples/support-bracket/reference/support.step) ·
+[Native check report](examples/support-bracket/reference/checks.json) ·
+[Machine-readable qualification record](examples/support-bracket/reference/verified-example.json)
+
+| Input or acceptance criterion | Example |
+| --- | --- |
+| Stock envelope | 160 × 42 × 14 mm |
+| Mounting bores | Three through bores, diameter 6.5 mm |
+| Bore centres, measured from the stock origin | `(14, 10)`, `(14, 32)`, `(148, 21)` mm |
+| Capsule pocket | `x=44..134`, `y=10..32` mm, 11 mm end radii |
+| Blind pocket depth | 12 mm |
+| Residual floor | 2 mm, measured from the native solid |
+| BMA integration | Both `create_support` and `get_result` completed |
+| Native checks | All 11 passed |
+| Grader audit | Valid control passed; all four deliberate defects rejected |
+| Observability and cleanup | Worker/broker logs exported; test session deleted; worker confirmed stopped; S3 versions still readable |
+| Native runtime | FreeCAD 1.1.4, OCCT 7.8.1 |
+| Recorded time | BMA turn: 79.1 s; native job: 16.6 s; full qualification: 283.2 s, excluding deployment |
+
+The [JSON example](examples/support-bracket.json) is the input source of
+truth. [`example.schema.json`](schemas/example.schema.json) defines its
+structure, and the application also checks the relationship between thickness,
+pocket depth and the expected floor.
+
+The reference is an exported result from a new deployment of this sample in
+an existing public subnet, followed by `e2e.py --existing-stack`.
+The source hashes in the qualification
+record identify the executed worker and client files. The recorded timings
+describe this one run; they are not a latency benchmark or cost estimate.
+The one-time scheduled stop was configured; this run verified the separate
+immediate cleanup stop rather than waiting for that future deadline.
+The BMA response did not report token usage for this run, so the reference
+does not claim measured token cost.
+
+Verify the checked-in reference files locally after installing dependencies:
+
+```bash
+uv run --frozen python evidence.py verify-reference
+```
+
+This validates the JSON, file sizes, hashes and required checks. It does not
+rerun FreeCAD or invoke AWS. A fresh native qualification uses the live
+workflow below.
+
 ## Prerequisites
 
 - Python 3.12+ and [uv](https://docs.astral.sh/uv/getting-started/installation/)
@@ -46,7 +119,9 @@ runtime, automation integration and qualification.
   [BMA caller-policy guidance](../../modules/01-bma-environment-none/00-prerequisites.md).
   This sample creates its own session role, so you do not need to create the
   workshop's role as well. Running the native audit also requires operator
-  `ssm:SendCommand` and `ssm:GetCommandInvocation` permissions.
+  `ssm:SendCommand` and `ssm:GetCommandInvocation` permissions. The end-to-end
+  runner additionally needs `logs:FilterLogEvents`, `ec2:StopInstances` and
+  `bedrock-mantle:DeleteAgentSession` for log capture and cleanup.
 
 The runtime roles are defined in
 [`cad_workflow/infrastructure.py`](cad_workflow/infrastructure.py). Deployment
@@ -73,23 +148,97 @@ and Guard, and verifies that four deliberately weakened infrastructure
 configurations are rejected. Rendered templates go to `.state/validation/`.
 These checks do not execute native FreeCAD or BMA.
 
-## Deploy and run
+## Run the complete example
 
 Replace the uppercase placeholders with your AWS profile and 12-digit account.
 You can omit `--profile` to use the standard credential chain.
 
 ```bash
-# Creates billable AWS resources and stops the worker after four hours.
+# Creates billable resources, invokes BMA, and stops the worker after the test.
+uv run --frozen python e2e.py --deploy \
+  --example examples/support-bracket.json \
+  --profile YOUR_PROFILE --region us-east-1 \
+  --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad --hours 4
+```
+
+Use a new stack name. A VPC, subnet and Internet Gateway are created by
+default. If you need an existing public subnet, add both
+`--vpc-id YOUR_VPC_ID --subnet-id YOUR_SUBNET_ID`.
+
+For an already running stack built from the same worker source:
+
+```bash
+uv run --frozen python e2e.py --existing-stack \
+  --example examples/support-bracket.json \
+  --profile YOUR_PROFILE --region us-east-1 \
+  --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad
+```
+
+**Both live modes delete their own BMA session and stop the selected worker
+after exporting evidence.** Use a dedicated test worker with no other active
+jobs. The runner checks sample ownership, backend, worker source hash and
+bootstrap identity before using it. It does not silently upgrade a worker
+whose source differs.
+
+The runner executes these stages:
+
+| Stage | What must succeed |
+| --- | --- |
+| Identity and optional deployment | STS matches the supplied account; local checks and AWS change-set validation pass |
+| Worker provenance | The deployed backend and source hashes match the checkout and bootstrap record |
+| BMA and native CAD | Both MCP tools complete; FreeCAD produces and checks the requested part |
+| Native audit | The control and four semantic rejection cases meet their expectations |
+| Evidence verification | The downloaded native files, check reports, parameters and executed source hashes agree |
+| CloudWatch export | Job-correlated worker and broker log events are captured |
+| Session and compute cleanup | This run's session is deleted and EC2 reaches `stopped` |
+| Retained artifacts | Recorded S3 versions remain retrievable with matching hashes after the stop |
+
+The final stdout event has this shape; the job ID and paths vary:
+
+```json
+{
+  "event": "e2e_finished",
+  "status": "passed",
+  "job_id": "<32-character-job-id>",
+  "report": "<absolute-path>/.state/e2e/<job-id>/report.json",
+  "artifact_directory": "<absolute-path>/artifacts/<job-id>"
+}
+```
+
+Success requires **exit code `0` and report status `passed`**. Exit `1` means
+execution or qualification failed; exit `2` means CLI arguments were invalid.
+Stage logs and a schema-validated report are written even when an execution
+stage fails. Input errors that occur before execution fail before AWS calls.
+
+Validate a completed run again without making AWS calls:
+
+```bash
+uv run --frozen python evidence.py verify-run \
+  --report .state/e2e/JOB_ID_FROM_THE_RUN/report.json
+```
+
+The native and BMA artifacts remain in `artifacts/<job-id>/`. CloudWatch
+exports are `cloudwatch-worker.json` and `cloudwatch-broker.json` there.
+Deleting a BMA session does not delete these exported files.
+
+## Run the steps manually
+
+For development, the same components can be run separately:
+
+```bash
 uv run --frozen python deploy.py deploy \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad --hours 4
 
-# Create the part, run BMA's tool-calling loop, and download verified artifacts.
 uv run --frozen python run.py \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad \
   --thickness 14 --depth 12
 ```
+
+Unlike `e2e.py`, these two commands leave the session and worker available.
+Run the [native audit](#audit-the-native-grader), then follow
+[operation and cleanup](#operate-and-clean-up).
 
 Deployment checks the authenticated account with STS, runs local validation,
 resolves Ubuntu's published AMI parameter, creates a CloudFormation change set,
@@ -129,6 +278,9 @@ artifacts/<job-id>/
   bma-items.json         Stored conversation and tool records
   bma-turns.json         Terminal turn event
   bma-receipt.json       Model settings, elapsed time and tool count
+  cloudwatch-worker.json Worker log export (end-to-end runner)
+  cloudwatch-broker.json Broker log export (end-to-end runner)
+  bma-deletion.json      Session cleanup receipt (end-to-end runner)
 ```
 
 Phase logs and failure diagnostics are included when available. The client
@@ -228,6 +380,76 @@ for 30 days while the stack exists. Bootstrap diagnostics are
 See the [architecture notes](docs/architecture.md#logs-and-export) for log
 export and the distinction from a complete OpenTelemetry pipeline.
 
+## Machine-readable interface
+
+The README's YAML front matter points to [`sample.json`](sample.json).
+All manifest paths are relative to this sample directory, except
+`working_directory`, which is relative to the repository root. The manifest's
+commands are argument arrays; an automation client appends the required
+account and stack flags without evaluating a shell template.
+
+| Contract | File | Consumer behavior |
+| --- | --- | --- |
+| Sample discovery | [`sample.json`](sample.json) | Discover commands, required flags, outputs and side effects |
+| Example input | [`examples/support-bracket.json`](examples/support-bracket.json) | Supply the declared millimetre dimensions |
+| Example schema | [`schemas/example.schema.json`](schemas/example.schema.json) | Validate the JSON structure; the application also enforces the floor relationship |
+| Live run report | [`schemas/e2e-report.schema.json`](schemas/e2e-report.schema.json) | Require `status: passed`, complete stage results and confirmed cleanup |
+| Portable reference | [`schemas/reference.schema.json`](schemas/reference.schema.json) | Verify the committed native files and recorded check results offline |
+
+`e2e.py` writes JSON Lines to stdout. Each stage emits `stage_started` and
+`stage_finished`; the terminal event is `e2e_finished`. Child commands'
+human-readable output goes to stage log files, whose paths are recorded in
+the report. A passing report requires both tools, the native checks, all five
+audit cases, both log exports and cleanup. A skipped or failed stage cannot
+be represented as a successful end-to-end run.
+
+The private report includes the account, stack, job ID and source hashes.
+Keep it with its `artifacts/<job-id>/` directory when archiving a run.
+For an explicitly reviewed, portable example, export the reference into a
+new directory:
+
+```bash
+uv run --frozen python evidence.py export-reference \
+  --report .state/e2e/JOB_ID_FROM_THE_RUN/report.json \
+  --directory artifacts/exported-reference
+
+uv run --frozen python evidence.py verify-reference \
+  --directory artifacts/exported-reference
+```
+
+The exporter requires a passed run, verifies the saved evidence, and copies
+only the native model, STEP, preview, checks and a qualification manifest.
+It excludes AWS resource locations and conversation logs and refuses to
+overwrite an existing reference directory.
+
+The GitHub Actions workflow runs offline validation; it needs no AWS secrets
+and does not provision infrastructure or run paid inference. Live runs remain
+explicit operator commands.
+
+## Troubleshooting
+
+Start with the report's `errors` and the failed stage's `log` path. Preserve a
+failed job ID and use a new job for the next attempt; immutable records prevent
+a retry from silently replacing earlier evidence.
+
+| Symptom | Where to look and what to check |
+| --- | --- |
+| Missing profile or wrong account | Refresh the intended AWS login and check `--profile` / `--account`; identity failures occur before CAD dispatch |
+| CloudFormation deployment failure | `.state/<stack>/failed-events.json` or `validation-events.json`; resolve the reported permission, quota or resource issue |
+| VPC quota exhausted | Use both existing-network flags with an appropriate public subnet |
+| Worker source mismatch | Deploy the checkout under a new stack name; the runner does not patch a different worker |
+| Worker is stopped | Set a future stop deadline first, restart the instance, and wait for Systems Manager connectivity before testing |
+| BMA access or tool failure | Check model entitlement, the caller's session permissions and `iam:PassRole`, and the session role's exact Gateway permission |
+| Native rejection | Inspect `checks.json`, native phase logs and failure diagnostics in `artifacts/<job-id>/` |
+| Audit rejection case fails | Inspect `audit-<suite-id>/audit.json`; a crash does not satisfy a semantic rejection |
+| No CloudWatch events | Check `logs:FilterLogEvents`, the stack's log groups and SSM log delivery; the runner waits up to 90 seconds |
+| Hash or source verification failure | Preserve the differing files and report; compare their recorded versions and hashes before accepting the result |
+
+On failures after worker provenance has been verified, the runner attempts
+session cleanup and worker stop and records any cleanup failures separately.
+If the local process is forcibly killed or loses credentials, verify EC2
+state explicitly; the independent scheduled stop remains the fallback.
+
 ## Source map and extension points
 
 ```text
@@ -238,10 +460,15 @@ cad_workflow/
   broker.py                  Gateway Lambda implementation
   worker.py                  Isolation, freezing and artifact publication
   infrastructure.py          CloudFormation renderer and source bundle
+  example.py                 JSON input and saved-evidence validation
 bootstrap.sh                 Pinned FreeCAD download and worker setup
 deploy.py / run.py            Provision the sample and invoke BMA
+e2e.py                       Live qualification, JSON reporting and cleanup
+evidence.py                  Offline verification and portable reference export
 cleanup.py                   Scoped compute, stack and session cleanup
 audit.py / ops/               Operator-only native mutation audit
+sample.json / schemas/        Machine interface and JSON Schemas
+examples/                    Input fixture and verified native reference files
 tests/ / security.guard       Offline contract, evidence and infrastructure checks
 docs/                        AWS diagram, walkthrough and backend guidance
 ```

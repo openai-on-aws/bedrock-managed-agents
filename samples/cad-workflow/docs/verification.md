@@ -76,6 +76,18 @@ To qualify a deployment, retain:
 Keep these records in the customer's evidence store; runtime records and
 account identifiers are ignored by Git.
 
+For the complete executable path, use `e2e.py` as described in the
+[README](../README.md#run-the-complete-example). The runner verifies both MCP
+tools, checks the executed source hashes, captures job-correlated CloudWatch
+events, deletes the test session, confirms EC2 has stopped, and retrieves the
+recorded S3 versions again after that stop.
+
+The [portable reference](../examples/support-bracket/reference/verified-example.json)
+is backed by a real support-bracket run. `evidence.py verify-reference`
+validates its JSON and local file hashes without contacting AWS. That offline
+integrity check does not execute a geometry kernel; the recorded native audit
+and a fresh live run serve different purposes.
+
 ## Relationship to RLVR
 
 This checker could supply a verifiable reward signal for a separate

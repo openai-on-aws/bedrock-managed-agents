@@ -40,8 +40,9 @@ stages. EventBridge Scheduler provides a separate stop deadline for compute.*
    publishes the available artifacts, checks and an accepted or failed result
    to private, versioned S3. Conditional writes prevent job records from
    being silently overwritten.
-8. **Retrieve checked artifacts.** When a tool returns `pending`, BMA calls
-   `get_result`. The local client downloads the recorded S3 versions,
+8. **Retrieve checked artifacts.** BMA calls `get_result` after creation to
+   retrieve the published receipt, repeating if it returns `pending`.
+   The local client downloads the recorded S3 versions,
    verifies sizes and hashes, and checks the report against those native
    files. The engineer receives both an editable model and its evidence.
 
@@ -132,3 +133,8 @@ Offline tests validate the packaged Python, transport checks and generated
 infrastructure. To qualify a deployment, run a real BMA task and the
 [native grader audit](verification.md) and retain those results. Neither a
 diagram, passing unit tests nor bootstrap success proves a native CAD run.
+
+The [support-bracket reference](../examples/support-bracket/reference/verified-example.json)
+records a live qualification of this sample. The
+[end-to-end runner](../e2e.py) performs the native task, audit, log export and
+confirmed stop and produces a schema-validated report.

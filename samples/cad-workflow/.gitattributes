@@ -1,0 +1,4 @@
+# Preserve the exact exported bytes covered by the qualification manifest.
+examples/**/reference/* -text
+# Open CASCADE emits trailing spaces in STEP; retain the original export.
+examples/**/reference/*.step -whitespace

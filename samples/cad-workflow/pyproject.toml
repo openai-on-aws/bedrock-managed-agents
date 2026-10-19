@@ -5,6 +5,7 @@ description = "BMA tools for a native FreeCAD support-part workflow"
 requires-python = ">=3.12"
 dependencies = [
     "boto3==1.43.106",
+    "jsonschema==4.26.0",
     "openai[bedrock]==3.22.1",
 ]
 

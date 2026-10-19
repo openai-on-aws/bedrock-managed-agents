@@ -1,0 +1,27 @@
+{
+  "$schema": "../schemas/example.schema.json",
+  "schema_version": "bma-cad/example/v1",
+  "id": "support-bracket",
+  "title": "Support bracket with a 2 mm residual floor",
+  "backend": "freecad",
+  "parameters": {
+    "stock_thickness_mm": 14,
+    "pocket_depth_mm": 12
+  },
+  "expected": {
+    "floor_mm": 2,
+    "required_checks": [
+      "native_solid",
+      "native_features",
+      "constrained_sketches",
+      "blind_pocket",
+      "stock_thickness",
+      "units_and_envelope",
+      "material_and_mounting_interfaces",
+      "analytic_volume",
+      "residual_floor",
+      "step_roundtrip",
+      "native_parameter_roundtrip"
+    ]
+  }
+}
