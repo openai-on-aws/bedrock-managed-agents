@@ -77,7 +77,7 @@ Keep these records in the customer's evidence store; runtime records and
 account identifiers are ignored by Git.
 
 For the complete executable path, use `e2e.py` as described in the
-[README](../README.md#run-the-complete-example). The runner verifies both MCP
+[README](walkthrough.md#run-the-complete-example). The runner verifies both MCP
 tools, checks the executed source hashes, captures job-correlated CloudWatch
 events, deletes the test session, confirms EC2 has stopped, and retrieves the
 recorded S3 versions again after that stop.

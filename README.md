@@ -100,7 +100,7 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 
 | Sample | What it demonstrates |
 | --- | --- |
-| [CAD workflow with FreeCAD](samples/cad-workflow/README.md) | BMA calls IAM-authenticated MCP tools through AgentCore Gateway. An EC2 worker builds editable native CAD, independently checks the frozen geometry, and returns versioned S3 artifacts. Includes CloudFormation deployment, offline tests, a native grader audit, an AWS diagram and a documented extension boundary for a future CATIA V6 backend. |
+| [CAD workflows with FreeCAD](samples/cad-workflow/README.md) | Build and verify native FreeCAD parts, then run a resumable BMA study that compares candidates and responds to engineer feedback. Includes AWS deployment, checked artifacts, timeout recovery and an optional AgentCore execution workspace. CATIA V6 is an extension path. |
 
 ## Use it from Codex (optional)
 

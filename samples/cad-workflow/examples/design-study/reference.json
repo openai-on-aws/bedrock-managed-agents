@@ -1,0 +1,140 @@
+{
+  "format_version": 1,
+  "sample_id": "cad-workflow-freecad",
+  "record_type": "live_design_study_qualification",
+  "qualified_at": "2026-10-19T23:49:27.980725+00:00",
+  "model": "openai.gpt-6.1-sol",
+  "region": "us-east-1",
+  "environment_type": "none",
+  "same_bma_session_for_both_rounds": true,
+  "session_creation_timeout_recovered_without_resubmission": true,
+  "recovered_at": "2026-10-19T23:29:57.999410+00:00",
+  "worker_stopped_before_review": true,
+  "worker_stop_confirmed_at": "2026-10-19T23:45:37.822723+00:00",
+  "scheduled_stop_extended": false,
+  "runtime_workspace_qualified": false,
+  "worker_source_sha256": "4fb1a687a3d23ec036928d3dffdf94fa64f11f1c1040bda2ad642b4acf303537",
+  "prompt_sha256": "44c2fc8dad79adfb206fba977e2268957e254c45db4b22860946ef5dd8f19561",
+  "baseline_volume_mm3": 70172.71842603885,
+  "rounds": [
+    {
+      "round": 1,
+      "submitted_at": "2026-10-19T23:18:14.131795+00:00",
+      "collected_at": "2026-10-19T23:32:57.901997+00:00",
+      "requirements": {
+        "available_stock_mm": [
+          12,
+          14,
+          16
+        ],
+        "minimum_floor_mm": 2,
+        "minimum_volume_reduction_percent": 10
+      },
+      "allocated_new_jobs": 3,
+      "new_native_jobs": 3,
+      "tool_calls": {
+        "create_support": 3,
+        "get_result": 3
+      },
+      "candidates": [
+        {
+          "candidate": "candidate-0",
+          "stock_thickness_mm": 14.0,
+          "pocket_depth_mm": 12.0,
+          "measured_volume_mm3": 70172.71842603885,
+          "measured_floor_mm": 2.0,
+          "volume_reduction_percent": 0.0,
+          "native_checks_passed": 11,
+          "meets_current_brief": false,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "ed35df2238d02263579516b99b013120b829e1e2f6892b56233c551fd859da9a",
+            "support.step": "0401a9e7b4447e0bb412c13218110bd55d76a238e4e80e92c35128a199e9f145"
+          }
+        },
+        {
+          "candidate": "candidate-1",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 10.0,
+          "measured_volume_mm3": 60684.082282628835,
+          "measured_floor_mm": 1.9999999999999982,
+          "volume_reduction_percent": 13.521830643358804,
+          "native_checks_passed": 11,
+          "meets_current_brief": true,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "56f637150a59677a507903387bb670589600de51a81b54ddcf4a2658a992b0a7",
+            "support.step": "d400c32be822eca78d639ecb4309007460e941dd30d74b989983f82a8a48ee8d"
+          }
+        },
+        {
+          "candidate": "candidate-2",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 9.0,
+          "measured_volume_mm3": 62560.21499371317,
+          "measured_floor_mm": 2.9999999999999982,
+          "volume_reduction_percent": 10.848237895114693,
+          "native_checks_passed": 11,
+          "meets_current_brief": true,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "c3898d6ebcaae636132853bcd02b029527e013e0cf99011074dda519689ffb30",
+            "support.step": "57d0707b41e516072d390acc42557f62b7f6a86cc6ce9fad6bb223a9d73d9eab"
+          }
+        }
+      ],
+      "recommended_candidate": "candidate-1",
+      "goal_met": true,
+      "requires_engineer_review": true,
+      "workspace_commands_observed": 0,
+      "source_report_sha256": "48ca73cbe702330bce91830863cd731ce550c93f3159f97baed140cdb862b0eb"
+    },
+    {
+      "round": 2,
+      "submitted_at": "2026-10-19T23:47:52.926825+00:00",
+      "collected_at": "2026-10-19T23:49:27.980725+00:00",
+      "requirements": {
+        "available_stock_mm": [
+          12,
+          14,
+          16
+        ],
+        "minimum_floor_mm": 3,
+        "minimum_volume_reduction_percent": 10
+      },
+      "allocated_new_jobs": 0,
+      "new_native_jobs": 0,
+      "tool_calls": {
+        "get_result": 1
+      },
+      "candidates": [
+        {
+          "candidate": "candidate-2",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 9.0,
+          "measured_volume_mm3": 62560.21499371317,
+          "measured_floor_mm": 2.9999999999999982,
+          "volume_reduction_percent": 10.848237895114693,
+          "native_checks_passed": 11,
+          "meets_current_brief": true,
+          "evidence": "reused",
+          "native_file_sha256": {
+            "support.FCStd": "c3898d6ebcaae636132853bcd02b029527e013e0cf99011074dda519689ffb30",
+            "support.step": "57d0707b41e516072d390acc42557f62b7f6a86cc6ce9fad6bb223a9d73d9eab"
+          }
+        }
+      ],
+      "recommended_candidate": "candidate-2",
+      "goal_met": true,
+      "requires_engineer_review": true,
+      "workspace_commands_observed": 0,
+      "source_report_sha256": "9dd0cb5e64da235937cfcc48ccc210f2265de37a7fbcc68c6a98fc688376f859"
+    }
+  ],
+  "evidence_note": "This is a shareable summary of a live synthetic example. Full BMA items, version receipts and native files are retained in the operator’s ignored .state directory. Source reports include the client hashes used at session creation and collection.",
+  "qualification_limits": [
+    "Geometric fixture only; no structural, manufacturing or engineering approval.",
+    "AgentCore Runtime command execution, persistent files and idle restore were not exercised.",
+    "Candidate quotas are checked by the collector after execution, not enforced as tool-side spending limits."
+  ]
+}

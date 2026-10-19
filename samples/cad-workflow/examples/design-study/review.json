@@ -1,0 +1,13 @@
+{
+  "schema_version": "bma-cad/design-brief/v1",
+  "id": "lightweight-support",
+  "title": "Revise the bracket after a floor-thickness review",
+  "brief": "Demonstration review scenario: the engineer now requires at least 3 mm of material beneath the pocket. Reconsider your previous recommendation using the same measured baseline. Explain why a previously accepted native model may no longer satisfy this revised brief. Reuse a previously verified compliant candidate, retrieving its receipt again. This is a review of existing evidence: no new CAD jobs are allocated. If none of the known candidates is compliant, explain that another design round is needed. Recommend the lowest-volume compliant result for review. This fixture represents simulated feedback, not actual engineering approval.",
+  "baseline": {"stock_thickness_mm": 14, "pocket_depth_mm": 12},
+  "requirements": {
+    "available_stock_mm": [12, 14, 16],
+    "minimum_floor_mm": 3,
+    "minimum_volume_reduction_percent": 10
+  },
+  "candidate_count": 0
+}

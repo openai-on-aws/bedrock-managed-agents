@@ -89,7 +89,7 @@ future stop has succeeded.
 Stopping preserves EBS and S3, which remain billable. Stack deletion instead
 terminates the worker and deletes its root disk, while retaining S3. Restarting
 after the deadline requires a new future stop deadline. See
-[operation and cleanup](../README.md#operate-and-clean-up).
+[operation and cleanup](walkthrough.md#operate-and-clean-up).
 
 ## Logs and export
 
