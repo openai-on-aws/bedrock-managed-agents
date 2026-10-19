@@ -1,0 +1,15 @@
+[project]
+name = "bma-cad-sample"
+version = "0.1.0"
+description = "BMA tools for a native FreeCAD support-part workflow"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3==1.43.106",
+    "openai[bedrock]==3.22.1",
+]
+
+[dependency-groups]
+dev = ["cfn-lint==1.57.2"]
+
+[tool.uv]
+package = false

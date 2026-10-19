@@ -23,10 +23,13 @@ rejected — which makes the gate easy to see across a few turns.
 
 ## Prerequisite: a Gateway that exposes `GetRandomBool`
 
-This repo does **not** create AWS Lambda functions or AgentCore Gateways —
+This lab does **not** create AWS Lambda functions or AgentCore Gateways —
 that is outside its scope. But the tool behind this lab is tiny, so here is
 a brief copy-paste setup. Do this once in your AWS account, then bring
 back the AgentCore Gateway's ARN.
+
+For a complete deployment with Lambda tools, Gateway, a native worker and
+verification, see the [FreeCAD sample](../../../../samples/cad-workflow/README.md).
 
 **1. Create a Lambda function** that returns a random boolean:
 

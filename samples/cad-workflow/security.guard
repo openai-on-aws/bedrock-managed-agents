@@ -1,0 +1,35 @@
+let buckets = Resources.*[ Type == 'AWS::S3::Bucket' ]
+let workers = Resources.*[ Type == 'AWS::EC2::Instance' ]
+let groups = Resources.*[ Type == 'AWS::EC2::SecurityGroup' ]
+let gateways = Resources.*[ Type == 'AWS::BedrockAgentCore::Gateway' ]
+
+rule private_artifacts when %buckets !empty {
+    %buckets {
+        DeletionPolicy == 'Retain'
+        UpdateReplacePolicy == 'Retain'
+        Properties.PublicAccessBlockConfiguration.BlockPublicAcls == true
+        Properties.PublicAccessBlockConfiguration.BlockPublicPolicy == true
+        Properties.PublicAccessBlockConfiguration.IgnorePublicAcls == true
+        Properties.PublicAccessBlockConfiguration.RestrictPublicBuckets == true
+        Properties.VersioningConfiguration.Status == 'Enabled'
+        Properties.BucketEncryption.ServerSideEncryptionConfiguration[*].ServerSideEncryptionByDefault.SSEAlgorithm IN ['AES256', 'aws:kms']
+    }
+}
+
+rule isolated_worker when %workers !empty {
+    %workers {
+        Properties.MetadataOptions.HttpTokens == 'required'
+        Properties.MetadataOptions.HttpPutResponseHopLimit == 1
+        Properties.BlockDeviceMappings[*].Ebs.Encrypted == true
+        Properties.CreditSpecification.CPUCredits == 'standard'
+    }
+}
+
+rule no_ingress when %groups !empty {
+    %groups.Properties.SecurityGroupIngress empty
+}
+
+rule authenticated_gateway when %gateways !empty {
+    %gateways.Properties.AuthorizerType == 'AWS_IAM'
+    %gateways.Properties.ProtocolConfiguration.Mcp.SupportedVersions[*] == '2025-03-26'
+}

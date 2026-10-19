@@ -54,7 +54,7 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 ├── .agents/
 │   └── skills/
 │       └── bma-sessions/         # Codex skill: drive the labs conversationally
-└── modules/
+├── modules/
     ├── 01-bma-environment-none/  # Module 1: agents with environment=none
     │   ├── README.md             # module overview + lab index
     │   ├── 00-prerequisites.md   # install, credentials, IAM setup
@@ -85,6 +85,8 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
             ├── lab-02-interpret-results/
             ├── lab-03-continue-session/
             └── lab-04-delete-session/
+└── samples/
+    └── cad-workflow/             # BMA + native FreeCAD tools, verification and AWS deployment
 ```
 
 ## Modules
@@ -93,6 +95,12 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 |---|---|---|---|
 | [01 — BMA with `environment=none`](modules/01-bma-environment-none/README.md) | Create a session, interpret results and items, prove durable server-side session state, list and delete sessions, and (stretch) wire in AgentCore Gateway MCP tools — all without an execution environment. | Beginner | ~30–60 min |
 | [02 — BMA with AgentCore Runtime](modules/02-bma-agentcore-runtime/README.md) | Run agents in a real execution environment where the agent executes commands in a managed microVM: run on a Runtime, read `command_execution` items, continue a session as the workspace persists, and clean up. | Intermediate | ~30–60 min |
+
+## Samples
+
+| Sample | What it demonstrates |
+| --- | --- |
+| [CAD workflow with FreeCAD](samples/cad-workflow/README.md) | BMA calls IAM-authenticated MCP tools through AgentCore Gateway. An EC2 worker builds editable native CAD, independently checks the frozen geometry, and returns versioned S3 artifacts. Includes CloudFormation deployment, offline tests, a native grader audit, an AWS diagram and a documented extension boundary for a future CATIA V6 backend. |
 
 ## Use it from Codex (optional)
 
