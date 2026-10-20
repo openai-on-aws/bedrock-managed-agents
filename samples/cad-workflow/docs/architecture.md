@@ -174,6 +174,12 @@ roles, log groups and stop schedule. The client creates BMA sessions on demand.
 The dashed Runtime is supplied separately. Diagram labels use generic customer
 scope and contain no deployment account or resource identifiers.
 
+The recorded deployment used the **existing-network option** in `us-east-1`:
+an existing VPC and public subnet, one `t3.medium` worker and a 30 GiB encrypted
+gp3 root disk. Its BMA session used `environment=none`. The
+[README component inventory](../README.md#deployed-architecture) describes the
+services involved; the default quickstart provisions a dedicated VPC instead.
+
 The [live study reference](../examples/design-study/reference.json) records the
 19 October 2026 qualification: three native candidates passed all 11 checks;
 BMA first recommended a 13.52% volume reduction, then reused a checked candidate
