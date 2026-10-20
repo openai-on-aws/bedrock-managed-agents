@@ -18,18 +18,18 @@ Start with the verified support-bracket example below, or run the
 candidates, interprets measurements, reuses verified designs, and revises
 its recommendation after engineer feedback in the same session.
 
-## Deployed architecture
+## Architecture
 
-The live example ran in **`us-east-1`**, using an existing VPC and public subnet.
-The quickstart below creates a dedicated VPC by default. CloudFormation
-provisions the CAD tools and worker; the local client creates BMA sessions
-on demand.
+The code in this sample runs in **`us-east-1`**. By default, CloudFormation
+creates a dedicated VPC, public subnet, CAD tools and worker. You can also
+use an existing VPC and compatible subnet. The local client creates BMA
+sessions on demand.
 
 ![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](docs/architecture.png)
 
 | Component | What it does |
 | --- | --- |
-| **Bedrock Managed Agents + Amazon Bedrock** | BMA runs the managed Codex harness with GPT-6.1 Sol, chooses candidate dimensions and retains the conversation across review rounds. The qualified session uses `environment=none`. |
+| **Bedrock Managed Agents + Amazon Bedrock** | BMA runs the managed Codex harness, chooses candidate dimensions and retains the conversation across review rounds. The default model is GPT-6.1 Sol with `environment=none`. |
 | **AgentCore Gateway + AWS Lambda** | Gateway exposes the IAM-authenticated MCP tools `create_support` and `get_result`. The Lambda broker validates inputs, reserves job IDs and dispatches CAD work. |
 | **Amazon EC2 + EBS** | One `t3.medium` worker with a 30 GiB encrypted gp3 root disk runs four sequential stages: build in FreeCAD, freeze the files, run a separate checker, then publish evidence. |
 | **AWS Systems Manager** | A fixed Run Command document starts the native job through the worker's outbound connection. |
@@ -38,8 +38,8 @@ on demand.
 | **Amazon CloudWatch + AWS X-Ray** | Two log groups capture broker and worker diagnostics with 30-day retention. Lambda active X-Ray tracing is enabled. |
 | **Amazon EventBridge Scheduler** | A one-time UTC deadline stops this EC2 instance for cost control. It operates independently of BMA and can interrupt a running CAD job. |
 
-The dashed **AgentCore Runtime workspace** is an optional extension. It was
-not deployed or live-tested in this example.
+The dashed **AgentCore Runtime workspace** is an optional extension that
+requires separate provisioning. Its integration has not been live-validated.
 
 [Architecture notes](docs/architecture.md) · [Numbered walkthrough](docs/architecture-steps.md) ·
 [Editable diagram](docs/architecture.drawio) · [Scalable SVG](docs/architecture.svg)
@@ -55,14 +55,18 @@ From the repository root:
 
 ```bash
 cd samples/cad-workflow
-uv sync --frozen
-uv run --frozen python install_guard.py
-uv run --frozen python deploy.py validate
+uv sync
+uv run python install_guard.py
+uv run python deploy.py validate
 
-uv run --frozen python e2e.py --deploy \
+uv run python e2e.py --deploy \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad --hours 4
 ```
+
+`uv` uses the checked-in `uv.lock`. The optional `--frozen` flag prevents
+lockfile updates; CI and the machine-readable commands include it for
+repeatable dependency installation.
 
 Use a new stack name. This creates billable AWS resources, invokes BMA,
 checks the result, audits the grader, exports logs, deletes the test session,
@@ -70,9 +74,9 @@ and stops the worker. EBS, S3 and log storage remain provisioned. For an
 existing subnet or worker, see the [walkthrough](docs/walkthrough.md#run-the-complete-example).
 
 The example is a **160 × 42 × 14 mm bracket** with three mounting bores, a
-12 mm blind pocket and a 2 mm floor. A live AWS run on 19 October 2026 passed
-**all 11 CAD checks**; the grader also rejected four deliberately defective
-parts. Success is exit code `0` and `status: passed` in the saved report.
+12 mm blind pocket and a 2 mm floor. The runner requires **all 11 CAD checks**
+to pass and audits the grader with a valid control and four deliberately
+defective parts. Success is exit code `0` and `status: passed` in the saved report.
 
 [FreeCAD model](examples/support-bracket/reference/support.FCStd) ·
 [STEP file](examples/support-bracket/reference/support.step) ·
@@ -82,7 +86,7 @@ parts. Success is exit code `0` and `status: passed` in the saved report.
 Verify those checked-in files without AWS calls:
 
 ```bash
-uv run --frozen python evidence.py verify-reference
+uv run python evidence.py verify-reference
 ```
 
 ## What BMA does
@@ -98,10 +102,10 @@ an engineering brief, candidate results and review feedback. An AgentCore
 Runtime workspace additionally lets the harness use scripts, skills and
 working files throughout the study.
 
-The [live two-round study](docs/design-study.md#observed-aws-result) achieved
-13.52% volume reduction, then reused a 10.85% lighter design after a stricter
-floor requirement. BMA completed that review with EC2 stopped. The optional
-Runtime workspace path is implemented but has not been live-tested.
+In the [two-round study](docs/design-study.md), BMA compares candidate volumes,
+then revises its recommendation after a stricter floor requirement. A review
+can reuse a verified design while EC2 is stopped. The checked-in
+[study reference](examples/design-study/reference.json) illustrates the results.
 
 ## Cleanup
 
@@ -116,7 +120,7 @@ account and stack as your deployment.
 This stops EC2 only; BMA can continue, and EBS, S3 and log storage remain billable.
 
 ```bash
-uv run --frozen python cleanup.py stop \
+uv run python cleanup.py stop \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad
 ```
@@ -127,7 +131,7 @@ uv run --frozen python cleanup.py stop \
 Session deletion prevents further continuation.
 
 ```bash
-uv run --frozen python study.py delete-session \
+uv run python study.py delete-session \
   --study-id YOUR_STUDY_ID \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad
@@ -142,7 +146,7 @@ delete the sample's stack. This terminates EC2 and deletes its root disk,
 log groups and other stack-managed resources.
 
 ```bash
-uv run --frozen python cleanup.py delete-stack \
+uv run python cleanup.py delete-stack \
   --profile YOUR_PROFILE --region us-east-1 \
   --account YOUR_12_DIGIT_ACCOUNT --stack bma-cad-freecad
 ```
