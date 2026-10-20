@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="Electron" version="31.1.5" type="device">
   <diagram id="bma-cad-sample" name="Resumable BMA CAD study">
-    <mxGraphModel dx="2220" dy="2500" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2220" pageHeight="2500" math="0" shadow="0">
+    <mxGraphModel dx="2220" dy="1600" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2220" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -405,135 +405,6 @@
         </mxCell>
         <mxCell id="worker-egress-label" value="HTTPS 443 outbound" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=11;fontStyle=0;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="vpc">
           <mxGeometry x="240" y="415" width="230" height="17" as="geometry" />
-        </mxCell>
-        <mxCell id="step-1" value="1" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="205" y="633" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-2" value="2" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="340" y="400" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-3" value="3" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="680" y="650" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-4" value="4" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="890" y="650" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-5" value="5" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="650" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-6" value="6" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="1510" y="640" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-7" value="7" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="1840" y="1345" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-8" value="8" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="1000" y="1050" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-9" value="9" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="305" y="917" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="step-10" value="10" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="1440" y="410" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-footer" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#CBD5E1;fillColor=light-dark(#FFFFFF,#151F2D);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="40" y="1620" width="2150" height="844" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-heading" value="Numbered walkthrough" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=24;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="26" width="2070" height="34" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-subtitle" value="1–8: design study  ·  9: optional execution workspace  ·  10: independent scheduled EC2 stop" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="70" width="2070" height="24" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-1" value="1" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="112" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-1" value="Submit the engineering brief" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="113" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-1" value="The engineer uses the local Python client to start a design study or submit revised requirements.&lt;br/&gt;The client saves the brief, session ID and round markers so work can be collected or resumed&lt;br/&gt;later." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="148" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-2" value="2" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1110" y="112" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-2" value="Let BMA plan the study" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="113" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-2" value="Amazon Bedrock Managed Agents runs the managed Codex harness with an OpenAI model on Amazon&lt;br/&gt;Bedrock. It chooses candidate dimensions, compares measured results and retains context across&lt;br/&gt;review rounds. The default model is GPT-6.1 Sol." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="148" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-3" value="3" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="252" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-3" value="Invoke authenticated CAD tools" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="253" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-3" value="BMA uses its session IAM role to access Amazon Bedrock AgentCore Gateway. The MCP interface&lt;br/&gt;exposes two tools: create_support to request a candidate and get_result to inspect its outcome." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="288" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-4" value="4" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1110" y="252" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-4" value="Validate and reserve the job" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="253" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-4" value="The Lambda broker checks the requested dimensions against the supported part family and reserves&lt;br/&gt;an immutable job ID in S3. The agent supplies design parameters; the deployed broker fixes the&lt;br/&gt;worker, command document and storage destination." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="288" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-5" value="5" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="392" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-5" value="Dispatch the native CAD command" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="393" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-5" value="Lambda submits the fixed Systems Manager Run Command document to the EC2 worker. The worker&lt;br/&gt;receives it through an outbound connection, with no inbound SSH, desktop or MCP port exposed." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="428" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-6" value="6" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1110" y="392" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-6" value="Build, freeze and check the candidate" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="393" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-6" value="On one EC2 instance, a trusted supervisor runs the FreeCAD author, freezes its output files, and&lt;br/&gt;starts a separate FreeCAD checker. The checker runs 11 checks on the frozen candidate. Rows a–c in&lt;br/&gt;the EC2 rectangle show these sequential stages." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="428" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-7" value="7" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="532" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-7" value="Store the verdict and evidence" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="533" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-7" value="The supervisor publishes the native CAD files, check report and accepted or failed verdict to&lt;br/&gt;private, encrypted, versioned S3. Recorded versions and SHA-256 hashes bind the evidence to the&lt;br/&gt;files that were checked. This is row d in the EC2 rectangle." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="568" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-8" value="8" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1110" y="532" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-8" value="Compare results and return for review" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="533" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-8" value="BMA retrieves the receipts and recommends a candidate against the latest brief. The client&lt;br/&gt;verifies the downloaded evidence and produces JSON and Markdown reports for the engineer. A later&lt;br/&gt;round can reuse an existing checked design while EC2 is stopped. The result remains&lt;br/&gt;awaiting_review for the engineer&amp;#x27;s decision." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="568" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-9" value="9" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="40" y="672" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-9" value="Optionally add a persistent execution workspace" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="673" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-9" value="An existing BMA exec-server on AgentCore Runtime can provide planning scripts, reusable skills and&lt;br/&gt;working files. Persistent session storage supports retaining those files when configured. This&lt;br/&gt;integration requires separate provisioning and has not been live-validated." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="84" y="708" width="948" height="94" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-step-10" value="10" style="ellipse;html=1;align=center;verticalAlign=middle;fillColor=#007CBD;strokeColor=none;strokeWidth=1;fontColor=#FFFFFF;fontSize=16;fontStyle=1;shadow=0;glass=0;labelBackgroundColor=none;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1110" y="672" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-title-10" value="Stop EC2 at the scheduled deadline" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="673" width="948" height="29" as="geometry" />
-        </mxCell>
-        <mxCell id="legend-description-10" value="EventBridge Scheduler independently calls StopInstances at a configured UTC time for cost control.&lt;br/&gt;It can interrupt a running CAD job. Stopping EC2 preserves the BMA session, EBS disk and S3&lt;br/&gt;evidence; retained storage remains billable." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="legend-footer">
-          <mxGeometry x="1154" y="708" width="948" height="94" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -7,7 +7,7 @@ checks new candidates. A later review can reuse their S3 evidence with EC2
 stopped.
 
 [Editable AWS diagram](architecture.drawio) · [Full-resolution PNG](architecture.png) ·
-[Scalable SVG](architecture.svg) · [Numbered walkthrough for review](architecture-steps.md) ·
+[Scalable SVG](architecture.svg) · [Numbered walkthrough](../README.md#numbered-walkthrough) ·
 [Runnable design study](design-study.md)
 
 ![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](architecture.png)
@@ -18,14 +18,15 @@ The dashed purple path is an **optional AgentCore Runtime execution workspace**:
 the client integration exists, but this sample has not deployed or live-tested
 that path. The diagram uses standalone AWS icons, white space and colored
 infrastructure boundaries. Solid arrows show logical calls and evidence flow,
-not inbound network connections to EC2. A two-column numbered walkthrough
-below the architecture explains each marker.
+not inbound network connections to EC2. The
+[README's numbered walkthrough](../README.md#numbered-walkthrough) explains each
+stage as text outside the image.
 
 ## The numbered flow
 
-The ten small markers match the numbered walkthrough included in the image.
-The [text version](architecture-steps.md) contains the same descriptions for
-review and reuse in a blog.
+The walkthrough is numbered in the README; the diagram has no numbered markers.
+The [standalone text copy](architecture-steps.md) contains the same descriptions
+for review and reuse in a blog.
 
 Numbers 1–8 cover the brief, BMA planning, authenticated tools, validation,
 SSM dispatch, native checks, evidence publication and engineer review.

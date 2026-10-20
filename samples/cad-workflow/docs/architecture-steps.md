@@ -1,7 +1,7 @@
 # Architecture walkthrough for review
 
-These numbers match the small markers in the [AWS architecture diagram](architecture.png).
-The same descriptions appear in the numbered walkthrough beneath the architecture.
+This walkthrough explains the flow in the [AWS architecture diagram](architecture.png).
+The same descriptions are included as text in the [README](../README.md#numbered-walkthrough).
 Items 1–8 describe the study flow. Item 9 is optional; item 10 operates independently.
 
 1. **Submit the engineering brief.** The engineer uses the local Python client to
