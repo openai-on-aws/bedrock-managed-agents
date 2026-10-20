@@ -1,6 +1,7 @@
 # Architecture walkthrough for review
 
 These numbers match the small markers in the [AWS architecture diagram](architecture.png).
+The same descriptions appear in the numbered walkthrough beneath the architecture.
 Items 1–8 describe the study flow. Item 9 is optional; item 10 operates independently.
 
 1. **Submit the engineering brief.** The engineer uses the local Python client to
@@ -10,7 +11,7 @@ Items 1–8 describe the study flow. Item 9 is optional; item 10 operates indepe
 2. **Let BMA plan the study.** Amazon Bedrock Managed Agents runs the managed
    Codex harness with an OpenAI model on Amazon Bedrock. It chooses candidate
    dimensions, compares measured results and retains context across review
-   rounds. The qualified example uses GPT-6.1 Sol.
+   rounds. The default model is GPT-6.1 Sol.
 
 3. **Invoke authenticated CAD tools.** BMA uses its session IAM role to access
    Amazon Bedrock AgentCore Gateway. The MCP interface exposes two tools:
@@ -44,8 +45,8 @@ Items 1–8 describe the study flow. Item 9 is optional; item 10 operates indepe
 9. **Optionally add a persistent execution workspace.** An existing BMA
    exec-server on AgentCore Runtime can provide planning scripts, reusable skills
    and working files. Persistent session storage supports retaining those files
-   when configured. This connection is implemented, but was not deployed or
-   live-tested in the qualified example.
+   when configured. This integration requires separate provisioning and has
+   not been live-validated.
 
 10. **Stop EC2 at the scheduled deadline.** EventBridge Scheduler independently
     calls `StopInstances` at a configured UTC time for cost control. It can

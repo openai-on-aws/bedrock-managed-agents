@@ -18,14 +18,14 @@ The dashed purple path is an **optional AgentCore Runtime execution workspace**:
 the client integration exists, but this sample has not deployed or live-tested
 that path. The diagram uses standalone AWS icons, white space and colored
 infrastructure boundaries. Solid arrows show logical calls and evidence flow,
-not inbound network connections to EC2. Numbered explanations are provided
-separately from the image.
+not inbound network connections to EC2. A two-column numbered walkthrough
+below the architecture explains each marker.
 
 ## The numbered flow
 
-The ten small markers in the diagram match the separate
-[numbered walkthrough](architecture-steps.md). It provides prose you can review
-and reuse in a blog.
+The ten small markers match the numbered walkthrough included in the image.
+The [text version](architecture-steps.md) contains the same descriptions for
+review and reuse in a blog.
 
 Numbers 1–8 cover the brief, BMA planning, authenticated tools, validation,
 SSM dispatch, native checks, evidence publication and engineer review.
