@@ -18,7 +18,10 @@ Start with the verified support-bracket example below, or run the
 candidates, interprets measurements, reuses verified designs, and revises
 its recommendation after engineer feedback in the same session.
 
-![AWS architecture for BMA and the FreeCAD worker.](docs/architecture.png)
+![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](docs/architecture.png)
+
+[Architecture and numbered flow](docs/architecture.md) ·
+[Editable diagram](docs/architecture.drawio) · [Scalable SVG](docs/architecture.svg)
 
 ## Run the verified example
 

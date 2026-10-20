@@ -1,107 +1,179 @@
-# From an engineering request to checked CAD with BMA
+# Resumable CAD studies with Bedrock Managed Agents
 
-**Amazon Bedrock Managed Agents (BMA)** runs the managed reasoning and
-tool-calling loop. A native CAD worker on Amazon EC2 builds a support part,
-checks the frozen files, and publishes a verdict with evidence. The current
-backend is FreeCAD; the tools accept bounded dimensions for one part family.
+**Amazon Bedrock Managed Agents (BMA), powered by OpenAI, owns the design-study
+loop.** One managed session chooses candidates, reads native CAD evidence and
+revises its recommendation after engineer feedback. FreeCAD on EC2 builds and
+checks new candidates. A later review can reuse their S3 evidence with EC2
+stopped.
 
-[Editable AWS diagram](architecture.drawio) · [Full-resolution PNG](architecture.png)
+[Editable AWS diagram](architecture.drawio) · [Full-resolution PNG](architecture.png) ·
+[Scalable SVG](architecture.svg) · [Runnable design study](design-study.md)
 
-![BMA orchestrates eight numbered steps to build, freeze, verify and deliver native CAD on AWS.](architecture.png)
+![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](architecture.png)
 
-*The orange EC2 rectangle represents one VM. Its four rows are sequential job
-stages. EventBridge Scheduler provides a separate stop deadline for compute.*
+The solid paths represent the implemented FreeCAD/MCP setup; the build-and-review
+flow has been live-qualified.
+The dashed purple path is an **optional AgentCore Runtime execution workspace**:
+the client integration exists, but this sample has not deployed or live-tested
+that path. Pink shows the independent scheduled EC2 stop. Gray and green arrows
+show logical calls and evidence flow, not inbound network connections to EC2.
 
-## The eight steps
+## The numbered flow
 
-1. **Submit the engineering task to BMA.** The Python client creates a managed
-   session with the job ID, dimensions, model configuration and tool
-   instructions. `environment=none` means the session uses remote tools for
-   native CAD execution.
-2. **Invoke an authenticated CAD tool.** BMA uses its session IAM role to call
-   AgentCore Gateway. The MCP connector exposes `create_support` and
-   `get_result`.
-3. **Validate and dispatch.** Lambda validates the exact input fields and
-   numerical bounds, reserves the job ID in S3 and submits a fixed Systems
-   Manager Run Command document to the deployment's worker. The model cannot
-   select a different instance, document or shell command.
-4. **Build native CAD.** The root supervisor starts a fresh FreeCAD process
-   as the `cadauthor` Linux user. It builds a constrained sketch/pad/pocket
-   feature tree and writes `.FCStd`, STEP and a preview.
-5. **Freeze the candidate.** After the author exits, the supervisor copies
-   allowlisted files into its own read-only directory and hashes them. The
-   checker receives this fixed candidate.
-6. **Verify independently.** A fresh FreeCAD process under the `cadcheck`
-   user reopens the frozen files and performs 11 checks. It constructs its
-   reference solid with primitives and boolean operations separately from
-   the author's sketches, using the same FreeCAD/OCCT kernel.
-7. **Publish evidence and verdict.** The supervisor requires all named
-   checks to pass and their input hashes to match the frozen files. It
-   publishes the available artifacts, checks and an accepted or failed result
-   to private, versioned S3. Conditional writes prevent job records from
-   being silently overwritten.
-8. **Retrieve checked artifacts.** BMA calls `get_result` after creation to
-   retrieve the published receipt, repeating if it returns `pending`.
-   The local client downloads the recorded S3 versions,
-   verifies sizes and hashes, and checks the report against those native
-   files. The engineer receives both an editable model and its evidence.
+Steps 1–8 describe the study. Callouts 9 and 10 describe a separate optional
+capability and an independent lifecycle control.
 
-The [client](../run.py), [broker](../cad_workflow/broker.py),
-[worker](../cad_workflow/worker.py) and
-[FreeCAD verifier](../cad_workflow/backends/freecad/verifier.py) implement this
-sequence. A BMA completion message alone cannot establish geometric acceptance.
+1. **Start or resume the study.** The local Python CLI freezes the JSON brief,
+   candidate-job allocation and round marker. `study.py start` creates a BMA
+   session; `continue` submits a revised brief to that same session. The local
+   study record retains the session ID, input hashes and collected reports.
+2. **Plan with a Bedrock model.** BMA runs the managed Codex harness and invokes
+   the configured OpenAI model on Amazon Bedrock. It chooses candidate dimensions,
+   calls tools, compares measured results and explains its recommendation.
+   The qualified study used `openai.gpt-6.1-sol` with `environment=none`.
+   BMA continues after the local client exits; the client can reconnect later.
+3. **Reach the CAD tools securely.** BMA uses its session IAM role to invoke
+   Amazon Bedrock AgentCore Gateway. The authenticated MCP connector exposes
+   `create_support` and `get_result`; tool results return through this same path.
+4. **Dispatch a bounded native job.** Lambda validates the exact input fields
+   and numerical bounds, reserves an immutable job ID in S3 and sends a fixed
+   Systems Manager Run Command document to this deployment's worker. BMA supplies
+   dimensions, not an instance, document, file path or shell command.
+5. **Build, freeze and verify on one EC2 host.** The trusted supervisor runs the
+   author and checker sequentially under separate Linux users. The author builds
+   an editable part; the supervisor freezes its files; the checker reopens that
+   frozen candidate and runs 11 native checks. Rows a–c inside EC2 show this order.
+6. **Publish evidence and verdict.** Row d is the supervisor publishing native
+   files, check reports and an accepted or failed result to private, encrypted,
+   versioned S3. A successful verdict requires every named check to pass and the
+   checker's input hashes to match the frozen files. Conditional writes protect
+   job records from silent overwrite.
+7. **Read evidence and revise.** BMA calls `get_result`, repeating while the job
+   is pending, and uses the measured geometry to choose its next action. That
+   tool reads the receipt from S3 through Lambda; completed results do not need
+   a running CAD worker. A review with `candidate_count: 0` allocates no new jobs
+   and can recommend an earlier checked candidate against the revised brief.
+8. **Collect and return to engineer review.** The client downloads recorded S3
+   versions, verifies hashes and executed worker source, and checks the measured
+   candidates against the latest brief. It writes JSON and Markdown reports with
+   `status: awaiting_review`. The next engineering brief returns to step 1 in
+   the same session. An agent's final answer alone cannot establish acceptance.
+
+The [study client](../study.py), [study validation](../cad_workflow/study.py),
+[broker](../cad_workflow/broker.py), [worker](../cad_workflow/worker.py) and
+[FreeCAD verifier](../cad_workflow/backends/freecad/verifier.py) implement this flow.
+The simpler [baseline client](../run.py) uses the same CAD tools with fixed input
+dimensions.
 
 ## What the EC2 rectangle contains
 
-The supervisor, author and checker share one host. Author and checker execute
-sequentially under different Linux users, each with a fresh application and
-configuration directory, private network and temporary namespaces, a
-read-only system, and memory/process/time limits. Only the supervisor has
-cloud permissions.
+The orange rectangle is **one VM**, managed by a trusted supervisor. Its rows
+are job stages, not separate machines or concurrently running agent services.
 
-The model runs in BMA. Gateway, Lambda and Systems Manager are regional managed
-services outside the worker VPC. This sample does not provision AgentCore
-Runtime or a remote desktop.
+| Row | Process and responsibility | Output |
+| --- | --- | --- |
+| a — Build | A fresh FreeCAD process under `cadauthor` builds a constrained sketch/pad/pocket feature tree | Editable `.FCStd`, STEP and preview |
+| b — Freeze | The supervisor copies allowlisted files after the author exits and makes the candidate read-only | Fixed files with SHA-256 hashes |
+| c — Check | A fresh FreeCAD process under `cadcheck` reopens the frozen files and runs 11 checks | Measurements, check results and input hashes |
+| d — Publish | The supervisor verifies the check contract and uploads the available evidence | Versioned artifacts and an accepted or failed receipt |
 
-The default network has a public subnet and Internet Gateway. EC2 uses a
-public address for outbound HTTPS, with no inbound security-group rules.
-The SSM arrow represents a logical command delivered over the worker's
-outbound connection. The existing-network option uses the same arrangement
-with a customer-supplied subnet and route.
+The author and checker use separate application/configuration directories,
+private network and temporary namespaces, a read-only system, and
+memory/process/time limits. Only the supervisor has cloud permissions. The
+checker constructs its reference solid independently with primitives and boolean
+operations, but uses the same FreeCAD/OCCT kernel as the author.
 
-This host design is appropriate for the sample's fixed, trusted native
-programs. It is not a qualified shared tenant boundary or a sandbox for
-arbitrary uploaded CAD documents.
+This is a bounded sample with fixed, trusted native programs. It is not a
+qualified shared tenant boundary or a sandbox for arbitrary uploaded CAD
+files. Native acceptance covers geometry and editable features; structural
+strength, manufacturability and engineering release need additional analysis
+and a qualified approval process.
 
-## Why EventBridge Scheduler is present
+## Optional execution workspace (9)
+
+An existing **BMA exec-server AgentCore Runtime** can provide command execution,
+planning scripts, reusable filesystem skills and working files such as
+`PLAN.md`, `comparison.json` and `STUDY.md`. Persistent session storage can retain
+those files across an idle stop when configured as described in the
+[design-study guide](design-study.md#add-a-persistent-execution-workspace).
+
+This Runtime executes planning work; native CAD construction and the trusted
+checker remain on the separate FreeCAD host. The session role must permit the
+chosen model, this CAD Gateway and the selected Runtime. `study.py` accepts that
+role and Runtime; it does not provision them or modify IAM.
+
+The solid-path qualification did not exercise Runtime commands, persistent
+workspace files, idle restoration or hours of continuous execution. BMA's
+service-side session context and a Runtime filesystem are separate kinds of
+state.
+
+## Why EventBridge Scheduler is present (10)
 
 **EventBridge Scheduler implements scheduled EC2 stop for cost control.**
-Deployment sets an absolute UTC `StopAtUtc` value using `--hours` (1–24).
-CloudFormation creates a one-time `at(...)` schedule and a role that permits
+Deployment sets an absolute UTC `StopAtUtc` using `--hours` (1–24).
+CloudFormation creates a one-time `at(...)` schedule whose role permits
 `ec2:StopInstances` on this worker only.
 
-At the deadline, Scheduler calls the EC2 API independently of the laptop, BMA
-session and CAD job. It does not start jobs, poll their status, or wait for
-completion. A job still running at the deadline can be interrupted. The
-schedule has bounded retries; the configured deadline is not proof that a
-future stop has succeeded.
+At the deadline, Scheduler calls the EC2 API independently of the local client,
+BMA session and native job. It does not start CAD work, poll job status or wait
+for completion. A running job can be interrupted. Bounded retries are configured;
+an enabled schedule is not proof that a future stop succeeded.
 
-Stopping preserves EBS and S3, which remain billable. Stack deletion instead
-terminates the worker and deletes its root disk, while retaining S3. Restarting
-after the deadline requires a new future stop deadline. See
+Stopping EC2 does not delete the BMA session or stop BMA inference. The EBS disk,
+S3 evidence and log storage remain provisioned and billable. Stack deletion
+terminates EC2 and deletes its root disk, while retaining S3. Restarting after
+the deadline requires a new future stop deadline. See
 [operation and cleanup](walkthrough.md#operate-and-clean-up).
+
+`study.py` retains the session and worker for explicit lifecycle management.
+The baseline `e2e.py` runner instead deletes its test session and confirms its
+selected worker is stopped after collecting evidence.
+
+## Where state persists
+
+| State | Location | Effect of stopping the CAD worker |
+| --- | --- | --- |
+| Study conversation and durable items | BMA session | The same session can continue until explicitly deleted |
+| Briefs, round markers, IDs and collected reports | Local `.state/studies/<study-id>/` | Retained on the operator's machine |
+| Native files, measurements and version receipts | Private S3 bucket | Available through `get_result` and versioned downloads |
+| Worker software and local job files | Encrypted EC2 root EBS volume | Preserved on stop; root disk is deleted on termination |
+| Optional planning files | Runtime workspace and configured persistent session storage | Separate from EC2; persistence requires its own qualification |
+
+The client reconciles an ambiguous create or submission using the saved input
+marker and hash in BMA's durable items. It does not blindly create a second
+session or resubmit the brief. This recovery was exercised in the live study.
+
+## Network and access boundaries
+
+The default deployment has a dedicated VPC, public subnet and Internet Gateway.
+EC2 has a public address for outbound HTTPS, but its security group has **no
+inbound rules**. Systems Manager delivers logical commands through the worker's
+outbound connection. The sample does not expose SSH, a remote desktop or an MCP
+listener on EC2. The existing-network option uses a caller-supplied subnet and
+Internet Gateway route with the same worker security-group restrictions.
+
+BMA, model inference, AgentCore Gateway, Lambda, Systems Manager, S3 and Scheduler
+are regional managed services outside the CAD worker VPC. IAM roles separate
+model/tool invocation, broker dispatch, supervisor publication and scheduled
+stop. The optional Runtime is also shown outside this worker VPC; a customer
+network integration would need its own design.
+
+Candidate allocations are prompt instructions checked by the collector **after
+execution**, not tool-enforced cost quotas. For unattended customer operation,
+add broker-enforced study leases and candidate quotas, a durable lifecycle
+controller, and authenticated engineer review. See the
+[study operating limits](design-study.md#operating-limits-and-cleanup).
 
 ## Logs and export
 
-The sample captures three separate evidence streams:
-
-| Source | Where to find it | Export |
+| Source | Where it is saved | Export |
 | --- | --- | --- |
-| BMA session, events and items | Local `artifacts/<job-id>/bma-*` files | Already saved as JSON/JSONL by `run.py` |
-| Native files and check reports | Private S3 and the downloaded artifact directory | Versioned downloads with SHA-256 verification |
-| Lambda and SSM diagnostics | `/cad/<stack>/broker` and `/cad/<stack>/worker` in CloudWatch Logs | CloudWatch Logs API, CLI, or an S3 export task |
+| BMA study session and durable items | `.state/studies/<study-id>/session.json` and `items.json` | JSON snapshots from `status`, `collect` and recovery |
+| Baseline BMA session, events and items | `artifacts/<job-id>/bma-*` | JSON/JSONL saved by `run.py` |
+| Native CAD evidence | Private S3 and downloaded candidate directories | Recorded S3 versions with size and SHA-256 verification |
+| Lambda and SSM diagnostics | `/cad/<stack>/broker` and `/cad/<stack>/worker` in CloudWatch Logs | Logs API/CLI, or an S3 export task |
 
-For example, from the sample directory:
+CloudWatch Logs retention is 30 days. For example, from the sample directory:
 
 ```bash
 mkdir -p artifacts/logs
@@ -112,29 +184,48 @@ aws logs filter-log-events \
   --output json > artifacts/logs/worker-job.json
 ```
 
-The AWS CLI paginates the response. The caller needs
-`logs:FilterLogEvents`; use a time range for large log groups. Repeat with the
-broker group when needed. A CloudWatch Logs S3 export requires its own export
-task permissions and destination bucket policy.
+The CLI paginates responses. The caller needs `logs:FilterLogEvents`; use a time
+range for large groups. A CloudWatch Logs S3 export task requires its own
+permissions and destination bucket policy.
 
-Lambda active X-Ray tracing is configured. This sample does **not** install
-an OpenTelemetry collector or automatically export BMA service traces into
-one distributed trace. BMA event JSON, CloudWatch log export and OTEL are
-different mechanisms. Add a collector or subscription pipeline, correlation
-IDs and appropriate retention when that observability requirement arises.
+Lambda active X-Ray tracing is configured. The sample does **not** provision an
+OpenTelemetry collector or one distributed trace spanning BMA, Gateway, Lambda
+and native CAD. BMA item export, CloudWatch log export and OTEL are distinct
+mechanisms; additional correlation and an export pipeline are future work.
 
-## Deployment and verification status
+## Deployment and qualification
 
-The diagram describes the resources produced by this sample's
-[CloudFormation renderer](../cad_workflow/infrastructure.py). It uses generic
-account labels and includes no customer deployment identifiers.
+The [CloudFormation renderer](../cad_workflow/infrastructure.py) creates the
+worker, CAD Gateway and Lambda target, SSM document, private bucket, networking,
+roles, log groups and stop schedule. The client creates BMA sessions on demand.
+The dashed Runtime is supplied separately. Diagram labels use generic customer
+scope and contain no deployment account or resource identifiers.
 
-Offline tests validate the packaged Python, transport checks and generated
-infrastructure. To qualify a deployment, run a real BMA task and the
-[native grader audit](verification.md) and retain those results. Neither a
-diagram, passing unit tests nor bootstrap success proves a native CAD run.
+The [live study reference](../examples/design-study/reference.json) records the
+19 October 2026 qualification: three native candidates passed all 11 checks;
+BMA first recommended a 13.52% volume reduction, then reused a checked candidate
+with a 3 mm floor and 10.85% reduction after review. The second round ran in the
+same BMA session with EC2 already stopped and made one `get_result` call with
+zero new native jobs. The review brief is simulated engineer feedback for the
+demonstration.
 
-The [support-bracket reference](../examples/support-bracket/reference/verified-example.json)
-records a live qualification of this sample. The
-[end-to-end runner](../e2e.py) performs the native task, audit, log export and
-confirmed stop and produces a schema-validated report.
+The [baseline reference](../examples/support-bracket/reference/verified-example.json)
+and [end-to-end runner](../e2e.py) additionally cover the native grader audit,
+log export and confirmed worker stop. Passing unit tests or a diagram alone
+does not establish a qualified CAD run. CATIA V6 remains a future backend;
+[its integration contract](adding-a-backend.md) is not an implemented service.
+
+## Updating the diagram
+
+Edit `docs/architecture.drawio`, then regenerate both published images from the
+sample directory with draw.io Desktop's CLI:
+
+```bash
+drawio --export --format png --embed-diagram --scale 1.5 --border 20 \
+  --output docs/architecture.png docs/architecture.drawio
+drawio --export --format svg --embed-diagram --border 20 \
+  --output docs/architecture.svg docs/architecture.drawio
+```
+
+Keep this numbered explanation, the diagram and the machine manifest in sync.
+The editable source remains checked in alongside the PNG and scalable SVG.

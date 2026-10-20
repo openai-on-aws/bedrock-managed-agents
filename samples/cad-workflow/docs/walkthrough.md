@@ -24,10 +24,11 @@ runtime, automation integration and qualification.
 > bounded support-part example; it does not implement general text-to-CAD,
 > arbitrary Python tools, structural analysis, or manufacturing approval.
 
-![AWS architecture: BMA invokes authenticated CAD tools; one EC2 worker builds, freezes, checks and publishes the native files.](../docs/architecture.png)
+![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](architecture.png)
 
 [Numbered architecture and blog walkthrough](../docs/architecture.md) ·
 [Editable AWS diagram](../docs/architecture.drawio) ·
+[Scalable SVG](architecture.svg) ·
 [Verification and grader audit](../docs/verification.md)
 
 ## Start here

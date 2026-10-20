@@ -1,6 +1,7 @@
 # A resumable CAD design study with BMA
 
-[Sample overview](../README.md) · [Deployment walkthrough](walkthrough.md)
+[Sample overview](../README.md) · [Deployment walkthrough](walkthrough.md) ·
+[Complete AWS architecture](architecture.md)
 
 The baseline proves that BMA can invoke a CAD tool and retrieve checked files.
 Its dimensions are supplied by the caller, so the model has little to decide.

@@ -7,6 +7,12 @@
     "design_study": "docs/design-study.md",
     "architecture": "docs/architecture.md"
   },
+  "architecture": {
+    "editable": "docs/architecture.drawio",
+    "png": "docs/architecture.png",
+    "svg": "docs/architecture.svg",
+    "numbered_explanation": "docs/architecture.md"
+  },
   "working_directory": "samples/cad-workflow",
   "backend": "freecad",
   "example": "examples/support-bracket.json",
