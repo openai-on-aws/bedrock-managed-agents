@@ -15,8 +15,9 @@ stopped.
 The solid paths represent the implemented FreeCAD/MCP setup; the build-and-review
 flow has been live-qualified.
 The dashed purple path is an **optional AgentCore Runtime execution workspace**:
-the client integration exists, but this sample has not deployed or live-tested
-that path. The diagram uses standalone AWS icons, white space and colored
+workspace commands, persistent files and resumed review have also been
+[live-validated](runtime-validation.md). The Runtime requires separate
+provisioning. The diagram uses standalone AWS icons, white space and colored
 infrastructure boundaries. Solid arrows show logical calls and evidence flow,
 not inbound network connections to EC2. The
 [README's numbered walkthrough](../README.md#numbered-walkthrough) explains each
@@ -76,10 +77,12 @@ checker remain on the separate FreeCAD host. The session role must permit the
 chosen model, this CAD Gateway and the selected Runtime. `study.py` accepts that
 role and Runtime; it does not provision them or modify IAM.
 
-The solid-path qualification did not exercise Runtime commands, persistent
-workspace files, idle restoration or hours of continuous execution. BMA's
-service-side session context and a Runtime filesystem are separate kinds of
-state.
+The Runtime qualification exercised Python planning, saved `PLAN.md`,
+`comparison.json` and `STUDY.md`, and resumed review after a pause and compute
+replacement. An independent command probe checked file hashes before BMA
+continued; the resumed agent then updated all three files. See the
+[validation record and limits](runtime-validation.md). BMA's service-side
+session context and a Runtime filesystem are separate kinds of state.
 
 ## Why EventBridge Scheduler is present (10)
 
@@ -111,7 +114,7 @@ selected worker is stopped after collecting evidence.
 | Briefs, round markers, IDs and collected reports | Local `.state/studies/<study-id>/` | Retained on the operator's machine |
 | Native files, measurements and version receipts | Private S3 bucket | Available through `get_result` and versioned downloads |
 | Worker software and local job files | Encrypted EC2 root EBS volume | Preserved on stop; root disk is deleted on termination |
-| Optional planning files | Runtime workspace and configured persistent session storage | Separate from EC2; persistence requires its own qualification |
+| Optional planning files | Runtime workspace and configured persistent session storage | Retained independently of EC2; restoration across compute replacement was live-validated |
 
 The client reconciles an ambiguous create or submission using the saved input
 marker and hash in BMA's durable items. It does not blindly create a second

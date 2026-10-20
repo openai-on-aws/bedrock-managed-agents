@@ -45,8 +45,9 @@ Items 1–8 describe the study flow. Item 9 is optional; item 10 operates indepe
 9. **Optionally add a persistent execution workspace.** An existing BMA
    exec-server on AgentCore Runtime can provide planning scripts, reusable skills
    and working files. Persistent session storage supports retaining those files
-   when configured. This integration requires separate provisioning and has
-   not been live-validated.
+   when configured. This integration requires separate provisioning. Workspace
+   commands, file persistence across compute replacement and resumed review
+   have been live-validated.
 
 10. **Stop EC2 at the scheduled deadline.** EventBridge Scheduler independently
     calls `StopInstances` at a configured UTC time for cost control. It can

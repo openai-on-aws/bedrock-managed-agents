@@ -239,7 +239,7 @@
         <mxCell id="optional-title" value="OPTIONAL EXECUTION WORKSPACE" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=#8C4FFF;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
           <mxGeometry x="153" y="808" width="440" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="optional-status" value="Optional · integration not live-validated" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+        <mxCell id="optional-status" value="Optional · workspace + restart validated" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
           <mxGeometry x="153" y="840" width="440" height="24" as="geometry" />
         </mxCell>
         <mxCell id="runtime" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock_agentcore;sketch=0;fillColor=#49A58F;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">

@@ -158,9 +158,10 @@ Full service transcripts, version receipts and native files remain in the
 operator's ignored `.state` directory. Candidate choices can vary in another
 run; a review with no compliant prior candidate returns an unmet goal.
 
-The optional Runtime connection described below is implemented but **was not
-live-qualified**. This run did not test command execution, persistent
-workspace files, idle restoration or hours of continuous execution.
+That qualification used `environment=none`. A separate
+[Runtime qualification](runtime-validation.md) on 20 October 2026 validated
+workspace commands, persistent files across compute replacement, and review
+in the same BMA session after a pause.
 
 ## What the Codex harness is doing
 
@@ -250,8 +251,14 @@ separate x86_64 FreeCAD worker. The Runtime need not contain FreeCAD.
 
 The collected report counts `command_execution` items so that a run can
 show whether the harness actually used the workspace. That count alone
-does not prove file persistence across an idle stop; qualify stop/resume
-separately before relying on it.
+does not prove file persistence. The [live validation](runtime-validation.md)
+also compared file hashes across compute replacement before submitting the
+next BMA turn, then checked that the resumed agent updated the files.
+
+Managed session storage has a **14-day idle expiry** and resets when the
+Runtime version changes. Preserve important deliverables in durable artifact
+storage before updating or deleting the Runtime. See
+[AWS filesystem lifecycle behavior](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-filesystem-configurations.html).
 
 ## Machine interface and saved evidence
 

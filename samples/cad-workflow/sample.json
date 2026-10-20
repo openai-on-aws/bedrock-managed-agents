@@ -5,6 +5,7 @@
   "guides": {
     "walkthrough": "docs/walkthrough.md",
     "design_study": "docs/design-study.md",
+    "runtime_validation": "docs/runtime-validation.md",
     "architecture": "docs/architecture.md"
   },
   "architecture": {
@@ -86,6 +87,15 @@
     "collected_status": "awaiting_review",
     "default_environment": "none",
     "runtime_start_arguments": ["--runtime-arn", "--session-role-arn", "--workspace-directory", "--capability-directory"],
+    "runtime_qualification": {
+      "verified_reference": "examples/design-study/runtime-reference.json",
+      "guide": "docs/runtime-validation.md",
+      "workspace_directory": "/mnt/home/workspace",
+      "session_storage_mount_path": "/mnt/home",
+      "validated": ["python_commands", "workspace_files", "files_across_compute_replacement", "same_session_review"],
+      "continuous_execution_qualified": false,
+      "filesystem_skills_qualified": false
+    },
     "side_effects": {
       "creates_billable_bma_session": true,
       "dispatches_native_cad_jobs": true,

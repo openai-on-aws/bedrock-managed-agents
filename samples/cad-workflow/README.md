@@ -72,8 +72,9 @@ Steps 1–8 describe the study flow. Step 9 is optional; step 10 operates indepe
 9. **Optionally add a persistent execution workspace.** An existing BMA
    exec-server on AgentCore Runtime can provide planning scripts, reusable skills
    and working files. Persistent session storage supports retaining those files
-   when configured. This integration requires separate provisioning and has
-   not been live-validated.
+   when configured. This integration requires separate provisioning. Workspace
+   commands, file persistence across compute replacement and resumed review
+   have been live-validated.
 
 10. **Stop EC2 at the scheduled deadline.** EventBridge Scheduler independently
     calls `StopInstances` at a configured UTC time for cost control. It can
@@ -94,7 +95,9 @@ Steps 1–8 describe the study flow. Step 9 is optional; step 10 operates indepe
 | **Amazon EventBridge Scheduler** | A one-time UTC deadline stops this EC2 instance for cost control. It operates independently of BMA and can interrupt a running CAD job. |
 
 The dashed **AgentCore Runtime workspace** is an optional extension that
-requires separate provisioning. Its integration has not been live-validated.
+requires separate provisioning. [Live validation](docs/runtime-validation.md)
+confirmed Python execution, saved workspace files across a pause and compute
+replacement, and continued review in the same BMA session with EC2 stopped.
 
 [Architecture notes](docs/architecture.md) · [Numbered walkthrough](#numbered-walkthrough) ·
 [Editable diagram](docs/architecture.drawio) · [Scalable SVG](docs/architecture.svg)
@@ -222,6 +225,7 @@ for details, including setting a new stop deadline before restarting EC2.
 | --- | --- |
 | Detailed setup, commands, results and troubleshooting | [Walkthrough](docs/walkthrough.md) |
 | A richer, resumable BMA workflow | [Design study](docs/design-study.md) |
+| Live workspace persistence and resumed review | [Runtime validation](docs/runtime-validation.md) |
 | AWS components and the numbered flow | [Architecture](docs/architecture.md) |
 | Geometric checks and grader audit | [Verification](docs/verification.md) |
 | Machine-readable commands and contracts | [sample.json](sample.json) |
