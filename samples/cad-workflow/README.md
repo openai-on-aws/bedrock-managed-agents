@@ -20,7 +20,7 @@ its recommendation after engineer feedback in the same session.
 
 ![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](docs/architecture.png)
 
-[Architecture and numbered flow](docs/architecture.md) ·
+[Architecture notes](docs/architecture.md) · [Numbered walkthrough](docs/architecture-steps.md) ·
 [Editable diagram](docs/architecture.drawio) · [Scalable SVG](docs/architecture.svg)
 
 ## Run the verified example

@@ -11,7 +11,8 @@
     "editable": "docs/architecture.drawio",
     "png": "docs/architecture.png",
     "svg": "docs/architecture.svg",
-    "numbered_explanation": "docs/architecture.md"
+    "numbered_explanation": "docs/architecture-steps.md",
+    "notes": "docs/architecture.md"
   },
   "working_directory": "samples/cad-workflow",
   "backend": "freecad",

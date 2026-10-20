@@ -7,7 +7,8 @@ checks new candidates. A later review can reuse their S3 evidence with EC2
 stopped.
 
 [Editable AWS diagram](architecture.drawio) · [Full-resolution PNG](architecture.png) ·
-[Scalable SVG](architecture.svg) · [Runnable design study](design-study.md)
+[Scalable SVG](architecture.svg) · [Numbered walkthrough for review](architecture-steps.md) ·
+[Runnable design study](design-study.md)
 
 ![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](architecture.png)
 
@@ -15,49 +16,21 @@ The solid paths represent the implemented FreeCAD/MCP setup; the build-and-revie
 flow has been live-qualified.
 The dashed purple path is an **optional AgentCore Runtime execution workspace**:
 the client integration exists, but this sample has not deployed or live-tested
-that path. Pink shows the independent scheduled EC2 stop. Gray and green arrows
-show logical calls and evidence flow, not inbound network connections to EC2.
+that path. The diagram uses standalone AWS icons, white space and colored
+infrastructure boundaries. Solid arrows show logical calls and evidence flow,
+not inbound network connections to EC2. Numbered explanations are provided
+separately from the image.
 
 ## The numbered flow
 
-Steps 1–8 describe the study. Callouts 9 and 10 describe a separate optional
-capability and an independent lifecycle control.
+The ten small markers in the diagram match the separate
+[numbered walkthrough](architecture-steps.md). It provides prose you can review
+and reuse in a blog.
 
-1. **Start or resume the study.** The local Python CLI freezes the JSON brief,
-   candidate-job allocation and round marker. `study.py start` creates a BMA
-   session; `continue` submits a revised brief to that same session. The local
-   study record retains the session ID, input hashes and collected reports.
-2. **Plan with a Bedrock model.** BMA runs the managed Codex harness and invokes
-   the configured OpenAI model on Amazon Bedrock. It chooses candidate dimensions,
-   calls tools, compares measured results and explains its recommendation.
-   The qualified study used `openai.gpt-6.1-sol` with `environment=none`.
-   BMA continues after the local client exits; the client can reconnect later.
-3. **Reach the CAD tools securely.** BMA uses its session IAM role to invoke
-   Amazon Bedrock AgentCore Gateway. The authenticated MCP connector exposes
-   `create_support` and `get_result`; tool results return through this same path.
-4. **Dispatch a bounded native job.** Lambda validates the exact input fields
-   and numerical bounds, reserves an immutable job ID in S3 and sends a fixed
-   Systems Manager Run Command document to this deployment's worker. BMA supplies
-   dimensions, not an instance, document, file path or shell command.
-5. **Build, freeze and verify on one EC2 host.** The trusted supervisor runs the
-   author and checker sequentially under separate Linux users. The author builds
-   an editable part; the supervisor freezes its files; the checker reopens that
-   frozen candidate and runs 11 native checks. Rows a–c inside EC2 show this order.
-6. **Publish evidence and verdict.** Row d is the supervisor publishing native
-   files, check reports and an accepted or failed result to private, encrypted,
-   versioned S3. A successful verdict requires every named check to pass and the
-   checker's input hashes to match the frozen files. Conditional writes protect
-   job records from silent overwrite.
-7. **Read evidence and revise.** BMA calls `get_result`, repeating while the job
-   is pending, and uses the measured geometry to choose its next action. That
-   tool reads the receipt from S3 through Lambda; completed results do not need
-   a running CAD worker. A review with `candidate_count: 0` allocates no new jobs
-   and can recommend an earlier checked candidate against the revised brief.
-8. **Collect and return to engineer review.** The client downloads recorded S3
-   versions, verifies hashes and executed worker source, and checks the measured
-   candidates against the latest brief. It writes JSON and Markdown reports with
-   `status: awaiting_review`. The next engineering brief returns to step 1 in
-   the same session. An agent's final answer alone cannot establish acceptance.
+Numbers 1–8 cover the brief, BMA planning, authenticated tools, validation,
+SSM dispatch, native checks, evidence publication and engineer review.
+Number 9 is the optional Runtime workspace; number 10 is the independent
+scheduled EC2 stop.
 
 The [study client](../study.py), [study validation](../cad_workflow/study.py),
 [broker](../cad_workflow/broker.py), [worker](../cad_workflow/worker.py) and

@@ -26,7 +26,7 @@ runtime, automation integration and qualification.
 
 ![BMA plans CAD studies, calls FreeCAD tools and resumes review with EC2 stopped.](architecture.png)
 
-[Numbered architecture and blog walkthrough](../docs/architecture.md) ·
+[Architecture notes](architecture.md) · [Numbered walkthrough](architecture-steps.md) ·
 [Editable AWS diagram](../docs/architecture.drawio) ·
 [Scalable SVG](architecture.svg) ·
 [Verification and grader audit](../docs/verification.md)
