@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bma-cad:e2e-report:v1",
+  "title": "End-to-end CAD qualification report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "example_id", "job_id", "started_at",
+    "completed_at", "scope", "source", "parameters", "stages",
+    "native", "bma", "audit", "logs", "cleanup", "errors"
+  ],
+  "properties": {
+    "schema_version": {"const": "bma-cad/e2e-report/v1"},
+    "status": {"enum": ["running", "passed", "failed"]},
+    "example_id": {"type": "string"},
+    "job_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["account", "region", "stack", "deployment_mode"],
+      "properties": {
+        "account": {"type": "string", "pattern": "^[0-9]{12}$"},
+        "region": {"const": "us-east-1"},
+        "stack": {"type": "string"},
+        "deployment_mode": {"enum": ["deploy", "existing"]}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["worker_sha256", "example_sha256", "client_sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "worker_sha256": {"$ref": "#/$defs/sha256"},
+        "example_sha256": {"$ref": "#/$defs/sha256"},
+        "client_sha256": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stock_thickness_mm", "pocket_depth_mm"],
+      "properties": {
+        "stock_thickness_mm": {"type": "number"},
+        "pocket_depth_mm": {"type": "number"}
+      }
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status", "started_at", "elapsed_seconds"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"enum": ["running", "passed", "failed"]},
+          "started_at": {"type": "string", "format": "date-time"},
+          "elapsed_seconds": {"type": "number", "minimum": 0},
+          "log": {"type": "string"},
+          "exit_code": {"type": "integer"},
+          "error": {"type": "string"}
+        }
+      }
+    },
+    "native": {"type": ["object", "null"]},
+    "bma": {"type": ["object", "null"]},
+    "audit": {"type": ["object", "null"]},
+    "logs": {"type": ["object", "null"]},
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["session_deleted", "worker_state", "artifacts_retained"],
+      "properties": {
+        "session_deleted": {"type": "boolean"},
+        "worker_state": {"type": ["string", "null"]},
+        "artifacts_retained": {"type": "boolean"}
+      }
+    },
+    "errors": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "passed"}}},
+      "then": {
+        "properties": {
+          "completed_at": {"type": "string"},
+          "errors": {"maxItems": 0},
+          "stages": {
+            "minItems": 10,
+            "items": {"properties": {"status": {"const": "passed"}}},
+            "allOf": [
+              {"contains": {"properties": {"name": {"const": "identity"}}}},
+              {"contains": {"properties": {"name": {"const": "worker_provenance"}}}},
+              {"contains": {"properties": {"name": {"const": "bma_and_native"}}}},
+              {"contains": {"properties": {"name": {"const": "native_audit"}}}},
+              {"contains": {"properties": {"name": {"const": "verify_evidence"}}}},
+              {"contains": {"properties": {"name": {"const": "cloudwatch_export"}}}},
+              {"contains": {"properties": {"name": {"const": "delete_session"}}}},
+              {"contains": {"properties": {"name": {"const": "stop_worker"}}}},
+              {"contains": {"properties": {"name": {"const": "confirm_stopped"}}}},
+              {"contains": {"properties": {"name": {"const": "confirm_artifacts_retained"}}}}
+            ]
+          },
+          "native": {
+            "type": "object",
+            "required": ["accepted", "checks", "input_sha256"],
+            "properties": {
+              "accepted": {"const": true},
+              "checks": {
+                "type": "array", "minItems": 11, "maxItems": 11,
+                "items": {
+                  "type": "object", "required": ["name", "passed"],
+                  "properties": {"name": {"type": "string"}, "passed": {"const": true}}
+                }
+              },
+              "input_sha256": {
+                "type": "object", "required": ["support.FCStd", "support.step"],
+                "additionalProperties": {"$ref": "#/$defs/sha256"}
+              }
+            }
+          },
+          "bma": {
+            "type": "object",
+            "required": ["status", "tools", "elapsed_seconds"],
+            "properties": {
+              "status": {"const": "completed"},
+              "elapsed_seconds": {"type": "number", "minimum": 0},
+              "tools": {
+                "type": "array", "minItems": 2,
+                "items": {
+                  "type": "object", "required": ["name", "status", "error"],
+                  "properties": {
+                    "name": {"type": "string"}, "status": {"const": "completed"}, "error": {"type": "null"}
+                  }
+                }
+              }
+            }
+          },
+          "audit": {
+            "type": "object",
+            "required": ["passed", "cases"],
+            "properties": {
+              "passed": {"const": true},
+              "cases": {
+                "type": "array", "minItems": 5, "maxItems": 5,
+                "items": {
+                  "type": "object", "required": ["case", "passed", "failed_checks"],
+                  "properties": {
+                    "case": {"type": "string"}, "passed": {"const": true},
+                    "failed_checks": {"type": "array", "items": {"type": "string"}}
+                  }
+                }
+              }
+            }
+          },
+          "logs": {
+            "type": "object",
+            "required": ["worker", "broker"],
+            "properties": {"worker": {"type": "integer", "minimum": 1}, "broker": {"type": "integer", "minimum": 1}}
+          },
+          "cleanup": {
+            "properties": {
+              "session_deleted": {"const": true},
+              "worker_state": {"const": "stopped"},
+              "artifacts_retained": {"const": true}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {"const": "passed"},
+          "scope": {"properties": {"deployment_mode": {"const": "deploy"}}}
+        }
+      },
+      "then": {
+        "properties": {
+          "stages": {"contains": {"properties": {"name": {"const": "deploy"}}}}
+        }
+      }
+    }
+  ],
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

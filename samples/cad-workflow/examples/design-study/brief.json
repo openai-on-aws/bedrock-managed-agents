@@ -1,0 +1,13 @@
+{
+  "schema_version": "bma-cad/design-brief/v1",
+  "id": "lightweight-support",
+  "title": "Reduce material in a laboratory support bracket",
+  "brief": "Compare the current support bracket with lighter candidates for a laboratory fixture. Preserve the mounting interfaces and 160 x 42 mm footprint. Choose dimensions, build candidates, compare measured native volumes, and recommend the lowest-volume candidate meeting the geometric requirements. Explain the tradeoff between removed material and floor thickness. Return the result for engineer review; do not claim strength or manufacturing approval.",
+  "baseline": {"stock_thickness_mm": 14, "pocket_depth_mm": 12},
+  "requirements": {
+    "available_stock_mm": [12, 14, 16],
+    "minimum_floor_mm": 2,
+    "minimum_volume_reduction_percent": 10
+  },
+  "candidate_count": 3
+}

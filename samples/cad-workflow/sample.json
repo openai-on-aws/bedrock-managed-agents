@@ -1,0 +1,125 @@
+{
+  "schema_version": "bma-cad/sample/v1",
+  "id": "cad-workflow-freecad",
+  "readme": "README.md",
+  "guides": {
+    "walkthrough": "docs/walkthrough.md",
+    "design_study": "docs/design-study.md",
+    "runtime_validation": "docs/runtime-validation.md",
+    "architecture": "docs/architecture.md"
+  },
+  "architecture": {
+    "editable": "docs/architecture.drawio",
+    "png": "docs/architecture.png",
+    "svg": "docs/architecture.svg",
+    "numbered_explanation": "docs/architecture-steps.md",
+    "notes": "docs/architecture.md"
+  },
+  "working_directory": "samples/cad-workflow",
+  "backend": "freecad",
+  "example": "examples/support-bracket.json",
+  "schemas": {
+    "example": "schemas/example.schema.json",
+    "e2e_report": "schemas/e2e-report.schema.json",
+    "reference": "schemas/reference.schema.json",
+    "design_brief": "schemas/design-brief.schema.json",
+    "study_report": "schemas/study-report.schema.json"
+  },
+  "commands": {
+    "install": ["uv", "sync", "--frozen"],
+    "install_guard": ["uv", "run", "--frozen", "python", "install_guard.py"],
+    "validate_offline": ["uv", "run", "--frozen", "python", "deploy.py", "validate"],
+    "deploy_and_test": ["uv", "run", "--frozen", "python", "e2e.py", "--deploy"],
+    "test_existing": ["uv", "run", "--frozen", "python", "e2e.py", "--existing-stack"],
+    "verify_saved_run": ["uv", "run", "--frozen", "python", "evidence.py", "verify-run"],
+    "verify_reference": ["uv", "run", "--frozen", "python", "evidence.py", "verify-reference"]
+  },
+  "live_arguments": {
+    "required": ["--account", "--stack"],
+    "optional": ["--profile", "--example"],
+    "deployment_only": ["--hours", "--model", "--vpc-id", "--subnet-id"],
+    "region": "us-east-1",
+    "default_model": "openai.gpt-6.1-sol",
+    "default_example": "examples/support-bracket.json"
+  },
+  "result_contract": {
+    "stdout": "jsonl",
+    "terminal_event": "e2e_finished",
+    "report_path_field": "report",
+    "success_status": "passed",
+    "report_path_pattern": ".state/e2e/{job_id}/report.json",
+    "artifacts_path_pattern": "artifacts/{job_id}",
+    "exit_codes": {"0": "passed", "1": "execution or qualification failed", "2": "invalid CLI arguments"}
+  },
+  "side_effects": {
+    "deploy_creates_billable_resources": true,
+    "both_live_modes_invoke_billable_bma": true,
+    "test_session_deleted_after_evidence_export": true,
+    "selected_worker_stopped_after_test": true,
+    "stack_deleted": false,
+    "ebs_s3_and_logs_retained": true
+  },
+  "reference_directory": "examples/support-bracket/reference",
+  "study": {
+    "schema_version": "bma-cad/study/v1",
+    "default_brief": "examples/design-study/brief.json",
+    "review_example": "examples/design-study/review.json",
+    "verified_reference": "examples/design-study/reference.json",
+    "instructions": "prompts/design-study.md",
+    "commands": {
+      "start": ["uv", "run", "--frozen", "python", "study.py", "start", "--brief", "examples/design-study/brief.json"],
+      "continue_review": ["uv", "run", "--frozen", "python", "study.py", "continue", "--brief", "examples/design-study/review.json"],
+      "status": ["uv", "run", "--frozen", "python", "study.py", "status"],
+      "collect": ["uv", "run", "--frozen", "python", "study.py", "collect"],
+      "recover": ["uv", "run", "--frozen", "python", "study.py", "recover"],
+      "cancel": ["uv", "run", "--frozen", "python", "study.py", "cancel"],
+      "delete_session": ["uv", "run", "--frozen", "python", "study.py", "delete-session"]
+    },
+    "required_scope_arguments": ["--account", "--stack"],
+    "required_after_start": ["--study-id"],
+    "state_path_pattern": ".state/studies/{study_id}/study.json",
+    "report_path_pattern": ".state/studies/{study_id}/rounds/{round_id}/report.json",
+    "submitted_event": "study_submitted",
+    "status_event": "study_status",
+    "collected_event": "study_collected",
+    "collection_requires": {"session_status": "idle", "ready_to_collect": true},
+    "goal_field": "goal_met",
+    "collected_status": "awaiting_review",
+    "default_environment": "none",
+    "runtime_start_arguments": ["--runtime-arn", "--session-role-arn", "--workspace-directory", "--capability-directory"],
+    "runtime_qualification": {
+      "verified_reference": "examples/design-study/runtime-reference.json",
+      "guide": "docs/runtime-validation.md",
+      "workspace_directory": "/mnt/home/workspace",
+      "session_storage_mount_path": "/mnt/home",
+      "validated": ["python_commands", "workspace_files", "files_across_compute_replacement", "same_session_review"],
+      "continuous_execution_qualified": false,
+      "filesystem_skills_qualified": false
+    },
+    "side_effects": {
+      "creates_billable_bma_session": true,
+      "dispatches_native_cad_jobs": true,
+      "session_continues_after_start_exits": true,
+      "auto_deletes_session": false,
+      "auto_stops_worker": false,
+      "provisions_runtime": false,
+      "changes_iam": false
+    },
+    "limits": {
+      "maximum_rounds_including_initial": 5,
+      "allocated_new_candidate_slots": {"minimum": 0, "maximum": 4},
+      "minimum_new_initial_candidates": 2,
+      "review_can_reuse_candidates_without_new_builds": true,
+      "zero_allocation_review_requires_running_worker": false,
+      "candidate_allocation_enforced_before_execution": false,
+      "engineering_approval_implemented": false
+    }
+  },
+  "limits": {
+    "part_family": "bounded support bracket",
+    "cad_uploads": false,
+    "arbitrary_code": false,
+    "catia_v6_implemented": false,
+    "engineering_signoff": false
+  }
+}

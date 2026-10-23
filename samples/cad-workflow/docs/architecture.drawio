@@ -1,0 +1,412 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" version="31.1.5" type="device">
+  <diagram id="bma-cad-sample" name="Resumable BMA CAD study">
+    <mxGraphModel dx="2220" dy="1600" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2220" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="architecture-title" value="Resumable CAD studies with Bedrock Managed Agents" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=30;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="2110" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="architecture-subtitle" value="One BMA session plans candidates, reads native evidence and resumes engineer review" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="40" y="86" width="2110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="title-separator" value="" style="shape=line;strokeWidth=2;strokeColor=#FF9900;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="40" y="125" width="2150" height="2" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-cloud" value="" style="rounded=1;absoluteArcSize=1;arcSize=6;html=1;strokeColor=#232F3E;strokeWidth=2.5;fillColor=light-dark(#FFFFFF,#151F2D);fillStyle=auto;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;dashed=0;dashPattern=4 3;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="250" y="170" width="1940" height="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-cloud-header" value="" style="shape=mxgraph.aws4.group_aws_cloud_alt;fillColor=#232F3E;strokeColor=none;aspect=fixed;gradientColor=none;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="0" y="0" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-cloud-title" value="AWS Cloud" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="56" y="11" width="1862" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="account" value="" style="rounded=1;absoluteArcSize=1;arcSize=6;html=1;strokeColor=#D92D7D;strokeWidth=2.5;fillColor=none;fillStyle=auto;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;dashed=0;dashPattern=4 3;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="20" y="60" width="1900" height="1310" as="geometry" />
+        </mxCell>
+        <mxCell id="account-header" value="" style="shape=mxgraph.aws4.group_account;fillColor=#D92D7D;strokeColor=none;aspect=fixed;gradientColor=none;fontFamily=Helvetica;" vertex="1" parent="account">
+          <mxGeometry x="0" y="0" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="account-title" value="Customer AWS account" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#D92D7D;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="account">
+          <mxGeometry x="56" y="11" width="1822" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="region" value="" style="rounded=1;absoluteArcSize=1;arcSize=6;html=1;strokeColor=#49A5AD;strokeWidth=2.5;fillColor=none;fillStyle=auto;container=0;pointerEvents=0;collapsible=0;recursiveResize=0;dashed=1;dashPattern=4 3;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="40" y="120" width="1860" height="1230" as="geometry" />
+        </mxCell>
+        <mxCell id="region-header" value="" style="shape=mxgraph.aws4.group_region;fillColor=#49A5AD;strokeColor=none;aspect=fixed;gradientColor=none;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="40" y="120" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="region-title" value="Region: us-east-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#49A5AD;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="96" y="131" width="1782" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-client" value="" style="shape=mxgraph.aws4.client;html=1;fillColor=light-dark(#232F3E,#F4F7FA);strokeColor=none;aspect=fixed;gradientColor=none;outlineConnect=0;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="74" y="668" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-icon" value="" style="shape=mxgraph.aws4.user;fillColor=light-dark(#232F3E,#F4F7FA);strokeColor=none;aspect=fixed;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="78" y="440" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-title" value="Engineer" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=18;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="20" y="522" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-role" value="Brief · review · feedback" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="10" y="555" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-actions" value="Local operator · Python CLI&lt;br/&gt;Start / status / collect / continue" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="5" y="759" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="local-state" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=none;fillColor=none;fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="30" y="945" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="local-state-title" value="Local study record" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="42" y="960" width="136" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="local-state-detail" value="Briefs + round markers&lt;br/&gt;Session ID + hashes&lt;br/&gt;JSON / Markdown reports&lt;br/&gt;&lt;br/&gt;.state/studies/" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="42" y="1005" width="136" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="bma-area-title" value="Managed reasoning and session" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="100" y="175" width="480" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="model" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;sketch=0;fillColor=#49A58F;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="164" y="248" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="model-name" value="Amazon Bedrock&lt;br/&gt;&lt;b&gt;GPT-6.1 Sol&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="65.0" y="335" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="model-note" value="OpenAI model on Amazon Bedrock&lt;br/&gt;Default model: GPT-6.1 Sol" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="320" y="263" width="405" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="bma-context-title" value="BMA runs the Codex harness" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=17;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="100" y="385" width="315" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="bma-context" value="Plans candidates · compares native checks&lt;br/&gt;Retains context across review rounds" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="100" y="421" width="315" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="bma" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;sketch=0;fillColor=#49A58F;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="164" y="498" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="bma-name" value="Amazon Bedrock&lt;br/&gt;&lt;b&gt;Managed Agents (BMA)&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="65.0" y="585" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock_agentcore;sketch=0;fillColor=#49A58F;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="484" y="498" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-name" value="Amazon Bedrock&lt;br/&gt;AgentCore Gateway" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="385.0" y="585" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="broker" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;sketch=0;fillColor=#E97B22;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="804" y="498" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="broker-name" value="AWS Lambda&lt;br/&gt;&lt;i&gt;Bounded CAD broker&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="705.0" y="585" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="ssm" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager;sketch=0;fillColor=#D92D7D;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1124" y="498" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="ssm-name" value="AWS Systems Manager&lt;br/&gt;&lt;i&gt;Run Command&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1025.0" y="585" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-note" value="create_support / get_result&lt;br/&gt;IAM-authenticated MCP" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="410" y="652" width="245" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="broker-note" value="Validate dimensions · reserve job ID&lt;br/&gt;Dispatch new builds only" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="705" y="652" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ssm-note" value="Logical command delivery&lt;br/&gt;Worker connects outbound" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1040" y="652" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;sketch=0;fillColor=#D92D7D;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1074" y="248" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler-name" value="Amazon EventBridge&lt;br/&gt;Scheduler" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="975.0" y="335" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="stop-note" value="SCHEDULED EC2 STOP&lt;br/&gt;Independent of BMA and CAD jobs" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=#D92D7D;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="970" y="405" width="275" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc" value="" style="rounded=1;absoluteArcSize=1;arcSize=6;html=1;strokeColor=#8C4FFF;strokeWidth=2.5;fillColor=none;fillStyle=auto;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;dashed=0;dashPattern=4 3;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1340" y="190" width="540" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc-header" value="" style="shape=mxgraph.aws4.group_vpc2;fillColor=#8C4FFF;strokeColor=none;aspect=fixed;gradientColor=none;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="0" y="0" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc-title" value="VPC" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#8C4FFF;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="56" y="11" width="462" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="internet-gateway" value="" style="shape=mxgraph.aws4.internet_gateway;sketch=0;fillColor=#8C4FFF;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="384" y="68" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="internet-gateway-name" value="Internet gateway&lt;br/&gt;&lt;i&gt;HTTPS 443 outbound&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="320.0" y="155" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="network-note" value="Public address for outbound HTTPS&lt;br/&gt;Security group: no inbound rules" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="40" y="100" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="subnet" value="" style="rounded=1;absoluteArcSize=1;arcSize=6;html=1;strokeColor=#248814;strokeWidth=2.5;fillColor=light-dark(#F4F8EA,#283223);fillStyle=auto;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;dashed=0;dashPattern=4 3;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="25" y="230" width="490" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="subnet-header" value="" style="shape=mxgraph.aws4.group_subnet;fillColor=#248814;strokeColor=none;aspect=fixed;gradientColor=none;fontFamily=Helvetica;" vertex="1" parent="subnet">
+          <mxGeometry x="0" y="0" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="subnet-title" value="Public subnet · CAD worker" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#248814;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="subnet">
+          <mxGeometry x="56" y="11" width="412" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="worker-host" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#ED7100;fillColor=light-dark(#FFFFFF00,#FFFFFF00);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="subnet">
+          <mxGeometry x="25" y="50" width="440" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;sketch=0;fillColor=#E97B22;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="44" y="28" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2-name" value="Amazon EC2&lt;br/&gt;&lt;i&gt;FreeCAD worker&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="5.0" y="115" width="150" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="host-title" value="One EC2 instance" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="170" y="18" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="host-role" value="FreeCAD 1.1.4 · x86_64&lt;br/&gt;Sequential author / checker processes&lt;br/&gt;Only supervisor has cloud permissions" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=13;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="170" y="62" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="author" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#E3B47E;fillColor=light-dark(#FFFFFF,#253341);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="20" y="175" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="author-letter" value="a" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=#007CBD;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="author">
+          <mxGeometry x="15" y="12" width="28" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="author-title" value="Build the native candidate" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="author">
+          <mxGeometry x="55" y="10" width="325" height="23" as="geometry" />
+        </mxCell>
+        <mxCell id="author-detail" value="cadauthor · constrained features&lt;br/&gt;FCStd, STEP and preview" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="author">
+          <mxGeometry x="55" y="39" width="325" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="frozen" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#E3B47E;fillColor=light-dark(#FFFFFF,#253341);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="20" y="280" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="frozen-letter" value="b" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=#007CBD;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="frozen">
+          <mxGeometry x="15" y="12" width="28" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="frozen-title" value="Freeze the exact files" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="frozen">
+          <mxGeometry x="55" y="10" width="325" height="23" as="geometry" />
+        </mxCell>
+        <mxCell id="frozen-detail" value="Supervisor · allowlist + copy + hash&lt;br/&gt;Read-only input for the checker" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="frozen">
+          <mxGeometry x="55" y="39" width="325" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="checker" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#E3B47E;fillColor=light-dark(#FFFFFF,#253341);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="20" y="385" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="checker-letter" value="c" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=#007CBD;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="checker">
+          <mxGeometry x="15" y="12" width="28" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="checker-title" value="Check geometry independently" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="checker">
+          <mxGeometry x="55" y="10" width="325" height="23" as="geometry" />
+        </mxCell>
+        <mxCell id="checker-detail" value="cadcheck · fresh FreeCAD process&lt;br/&gt;11 checks on the frozen CAD files" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="checker">
+          <mxGeometry x="55" y="39" width="325" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="publisher" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#E3B47E;fillColor=light-dark(#FFFFFF,#253341);fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="worker-host">
+          <mxGeometry x="20" y="490" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="publisher-letter" value="d" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=#007CBD;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="publisher">
+          <mxGeometry x="15" y="12" width="28" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="publisher-title" value="Publish the native verdict" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="publisher">
+          <mxGeometry x="55" y="10" width="325" height="23" as="geometry" />
+        </mxCell>
+        <mxCell id="publisher-detail" value="Supervisor · accepted or failed&lt;br/&gt;Artifacts, check report and version receipts" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="publisher">
+          <mxGeometry x="55" y="39" width="325" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="review-note" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=none;fillColor=none;fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="820" y="720" width="470" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="review-note-title" value="EC2 can be stopped during review" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=18;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="840" y="736" width="430" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="review-note-detail" value="Read existing S3 evidence in the same BMA session&lt;br/&gt;No new native CAD job is needed" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="840" y="779" width="430" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="artifacts" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;sketch=0;fillColor=#83A52D;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="814" y="898" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="artifacts-name" value="Amazon S3&lt;br/&gt;&lt;i&gt;Native CAD evidence&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="715.0" y="985" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="artifacts-note" value="Private · encrypted · versioned&lt;br/&gt;Recorded versions + SHA-256 hashes" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="705" y="1050" width="290" height="53" as="geometry" />
+        </mxCell>
+        <mxCell id="optional-runtime" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=#8C4FFF;fillColor=light-dark(#FFFFFF,#151F2D);fillStyle=auto;container=0;pointerEvents=0;dashed=1;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="100" y="790" width="540" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="optional-title" value="OPTIONAL EXECUTION WORKSPACE" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=15;fontStyle=1;fontColor=#8C4FFF;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="153" y="808" width="440" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="optional-status" value="Optional · workspace + restart validated" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="153" y="840" width="440" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock_agentcore;sketch=0;fillColor=#49A58F;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="179" y="898" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime-name" value="Amazon Bedrock&lt;br/&gt;AgentCore Runtime" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="110.0" y="985" width="210" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime-note" value="BMA exec-server · scripts and skills&lt;br/&gt;PLAN.md · comparison.json · STUDY.md&lt;br/&gt;&lt;br/&gt;Persistent session storage for files&lt;br/&gt;Existing Runtime + combined session role" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="330" y="880" width="292" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="auxiliary-services" value="" style="rounded=0;html=1;strokeWidth=1.5;strokeColor=none;fillColor=none;fillStyle=auto;container=0;pointerEvents=0;dashed=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="95" y="1110" width="820" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="auxiliary-heading" value="Access and observability" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="115" y="1121" width="770" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="iam" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;sketch=0;fillColor=#D44851;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="139" y="1168" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="iam-name" value="AWS IAM&lt;br/&gt;&lt;i&gt;Scoped service roles&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="60.0" y="1255" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="logs" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;sketch=0;fillColor=#D92D7D;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="409" y="1168" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="logs-name" value="Amazon CloudWatch&lt;br/&gt;&lt;i&gt;Broker + worker logs&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="310.0" y="1255" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="xray" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.xray;sketch=0;fillColor=#8C4FFF;strokeColor=#FFFFFF;outlineConnect=0;aspect=fixed;gradientColor=none;html=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="679" y="1168" width="72" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="xray-name" value="AWS X-Ray&lt;br/&gt;&lt;i&gt;Lambda active tracing&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=16;fontStyle=0;fontColor=light-dark(#232F3E,#F4F7FA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="580.0" y="1255" width="270" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="observability-scope" value="BMA session items and CAD diagnostics are exported separately." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=top;fontSize=15;fontStyle=0;fontColor=light-dark(#52667A,#BDCADA);spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="970" y="1243" width="875" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="engineer-role" target="engineer-client">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="engineer-request-label" value="request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=14;fontStyle=2;fontColor=#232F3E;labelBackgroundColor=none;points=[];fontFamily=Helvetica;" connectable="0" vertex="1" parent="engineer-request">
+          <mxGeometry relative="1" x="0.6" y="28" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="submit-resume" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="engineer-client" target="bma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="submit-resume-label" value="submit" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=2;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="153" y="677" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="model-inference" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0;exitY=0.25;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="bma" target="model">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="686" />
+              <mxPoint x="330" y="454" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mcp-call-result" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="bma" target="gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mcp-call-result-label" value="MCP · IAM" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=14;fontStyle=2;fontColor=#232F3E;labelBackgroundColor=none;points=[];fontFamily=Helvetica;" connectable="0" vertex="1" parent="mcp-call-result">
+          <mxGeometry relative="1" x="0.1" y="18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gateway-broker" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="gateway" target="broker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-broker-label" value="tool / result" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=14;fontStyle=2;fontColor=#232F3E;labelBackgroundColor=none;points=[];fontFamily=Helvetica;" connectable="0" vertex="1" parent="gateway-broker">
+          <mxGeometry relative="1" x="0" y="18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="new-job-dispatch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="broker" target="ssm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="new-job-dispatch-label" value="SendCommand" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;fontSize=14;fontStyle=2;fontColor=#232F3E;labelBackgroundColor=none;points=[];fontFamily=Helvetica;" connectable="0" vertex="1" parent="new-job-dispatch">
+          <mxGeometry relative="1" x="0" y="18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="native-command" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="ssm" target="ec2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="native-command-label" value="run job" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=2;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1220" y="507" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="author-freeze" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="author" target="frozen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="freeze-check" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="frozen" target="checker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="check-publish" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="checker" target="publisher">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="publisher" target="artifacts">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1860" y="1330" />
+              <mxPoint x="1260" y="1330" />
+              <mxPoint x="1260" y="1104" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="publish-evidence-label" value="publish files + verification verdict" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=2;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1040" y="1127" width="275" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="read-result" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0;exitY=0.75;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="broker" target="artifacts">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="722" />
+              <mxPoint x="950" y="1104" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="read-result-label" value="get_result" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=right;verticalAlign=top;fontSize=14;fontStyle=0;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="545" y="740" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="collect-evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=0;exitY=0.75;entryX=1;entryY=0.74;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="artifacts" target="engineer-client">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="920" y="1122" />
+              <mxPoint x="920" y="1280" />
+              <mxPoint x="235" y="1280" />
+              <mxPoint x="235" y="721" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="collect-evidence-label" value="collect · verify recorded versions and hashes" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=2;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="115" y="1074" width="480" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="optional-execution" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;dashPattern=7 5;exitX=0;exitY=0.75;entryX=0;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="bma" target="runtime">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="722" />
+              <mxPoint x="320" y="1104" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="scheduled-stop" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.5;entryX=0;entryY=0.25;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="scheduler" target="ec2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1510" y="454" />
+              <mxPoint x="1510" y="580" />
+              <mxPoint x="1600" y="580" />
+              <mxPoint x="1600" y="686" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="worker-egress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=none;startFill=1;strokeColor=#232F3E;strokeWidth=2;dashed=0;dashPattern=7 5;exitX=1;exitY=0.25;entryX=1;entryY=0.5;exitPerimeter=1;entryPerimeter=1;jumpStyle=arc;jumpSize=8;fontFamily=Helvetica;" edge="1" parent="1" source="ec2" target="internet-gateway">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1790" y="686" />
+              <mxPoint x="1790" y="800" />
+              <mxPoint x="2115" y="800" />
+              <mxPoint x="2115" y="464" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="worker-egress-label" value="HTTPS 443 outbound" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=11;fontStyle=0;fontColor=#232F3E;spacing=0;overflow=hidden;fontFamily=Helvetica;" vertex="1" parent="vpc">
+          <mxGeometry x="240" y="415" width="230" height="17" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

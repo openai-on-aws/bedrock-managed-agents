@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bma-cad:reference:v1",
+  "title": "Portable verified CAD example without AWS deployment identifiers",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "example_id", "verified_at", "region", "parameters",
+    "source", "native", "bma", "audit", "logs", "cleanup", "files", "timings"
+  ],
+  "properties": {
+    "schema_version": {"const": "bma-cad/reference/v1"},
+    "status": {"const": "passed"},
+    "example_id": {"type": "string"},
+    "verified_at": {"type": "string", "format": "date-time"},
+    "region": {"const": "us-east-1"},
+    "timings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["e2e_seconds", "native_seconds", "deployment_included"],
+      "properties": {
+        "e2e_seconds": {"type": "number", "minimum": 0},
+        "native_seconds": {"type": "number", "minimum": 0},
+        "deployment_included": {"type": "boolean"}
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stock_thickness_mm", "pocket_depth_mm"],
+      "properties": {
+        "stock_thickness_mm": {"type": "number"},
+        "pocket_depth_mm": {"type": "number"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["worker_sha256", "example_sha256", "client_sha256"],
+      "properties": {
+        "worker_sha256": {"$ref": "#/$defs/sha256"},
+        "example_sha256": {"$ref": "#/$defs/sha256"},
+        "client_sha256": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "native": {
+      "type": "object",
+      "required": ["accepted", "checks", "input_sha256", "backend"],
+      "properties": {"accepted": {"const": true}, "backend": {"const": "freecad"}}
+    },
+    "bma": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "status", "elapsed_seconds", "tools", "usage_reported"],
+      "properties": {
+        "model": {"type": "string"},
+        "status": {"const": "completed"},
+        "elapsed_seconds": {"type": "number", "minimum": 0},
+        "usage_reported": {"type": "boolean"},
+        "tools": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["name", "status"],
+            "properties": {"name": {"type": "string"}, "status": {"const": "completed"}}
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": ["passed", "cases", "verifier_sha256", "audit_sha256"],
+      "properties": {"passed": {"const": true}, "cases": {"type": "array", "minItems": 5, "maxItems": 5}}
+    },
+    "logs": {
+      "type": "object", "additionalProperties": false, "required": ["worker", "broker"],
+      "properties": {"worker": {"type": "integer", "minimum": 1}, "broker": {"type": "integer", "minimum": 1}}
+    },
+    "cleanup": {
+      "type": "object", "additionalProperties": false,
+      "required": ["session_deleted", "worker_state", "artifacts_retained"],
+      "properties": {
+        "session_deleted": {"const": true}, "worker_state": {"const": "stopped"},
+        "artifacts_retained": {"const": true}
+      }
+    },
+    "files": {
+      "type": "object", "additionalProperties": false,
+      "required": ["support.FCStd", "support.step", "preview.png", "checks.json"],
+      "properties": {
+        "support.FCStd": {"$ref": "#/$defs/file"},
+        "support.step": {"$ref": "#/$defs/file"},
+        "preview.png": {"$ref": "#/$defs/file"},
+        "checks.json": {"$ref": "#/$defs/file"}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["sha256", "bytes"],
+      "properties": {"sha256": {"$ref": "#/$defs/sha256"}, "bytes": {"type": "integer", "minimum": 1}}
+    }
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "format_version": 1,
+  "sample_id": "cad-workflow-freecad",
+  "record_type": "live_runtime_workspace_qualification",
+  "qualified_at": "2026-10-20T21:49:05.114735+00:00",
+  "model": "openai.gpt-6.1-sol",
+  "region": "us-east-1",
+  "environment_type": "aws_bedrock_agentcore",
+  "runtime_workspace_qualified": true,
+  "runtime_configuration": {
+    "version": "1",
+    "machine": "aarch64",
+    "exec_server_codex_version": "codex-cli 0.159.2",
+    "image_sha256": "b4da15ae7d6c8c721cbe0547a4f201ae3e80f7670390c0c3444cf7e318a0de31",
+    "workspace_directory": "/mnt/home/workspace",
+    "session_storage_mount_path": "/mnt/home",
+    "BMA_HOME_DIR": "/mnt/home",
+    "idle_timeout_seconds": 600,
+    "max_compute_lifetime_seconds": 3600
+  },
+  "same_bma_session_for_both_rounds": true,
+  "same_runtime_session_after_compute_replacement": true,
+  "workspace_verified_before_bma_continued": true,
+  "worker_stopped_before_review": true,
+  "worker_stopped_after_review": true,
+  "worker_stop_confirmed_at": "2026-10-20T21:37:51.506469+00:00",
+  "scheduled_stop_extended": true,
+  "worker_source_sha256": "4fb1a687a3d23ec036928d3dffdf94fa64f11f1c1040bda2ad642b4acf303537",
+  "prompt_sha256": "44c2fc8dad79adfb206fba977e2268957e254c45db4b22860946ef5dd8f19561",
+  "baseline_volume_mm3": 70172.71842603885,
+  "rounds": [
+    {
+      "round": 1,
+      "submitted_at": "2026-10-20T16:40:09.613930+00:00",
+      "collected_at": "2026-10-20T16:42:46.228914+00:00",
+      "requirements": {
+        "available_stock_mm": [
+          12,
+          14,
+          16
+        ],
+        "minimum_floor_mm": 2,
+        "minimum_volume_reduction_percent": 10
+      },
+      "allocated_new_jobs": 3,
+      "new_native_jobs": 3,
+      "tool_calls": {
+        "create_support": 3,
+        "get_result": 3
+      },
+      "workspace_commands_observed": 2,
+      "successful_python_commands": 2,
+      "candidates": [
+        {
+          "candidate": "candidate-0",
+          "stock_thickness_mm": 14.0,
+          "pocket_depth_mm": 12.0,
+          "measured_volume_mm3": 70172.71842603885,
+          "measured_floor_mm": 2.0,
+          "volume_reduction_percent": 0.0,
+          "native_checks_passed": 11,
+          "meets_current_brief": false,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "fe098896c773f7afe78b788b5d4b5672612e8e6fda393a941b451cb2d9c1d390",
+            "support.step": "64099b777a2016ad1743238e940080d06a6459fa98ad8f6e4b8c82cc8d988876"
+          }
+        },
+        {
+          "candidate": "candidate-1",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 10.0,
+          "measured_volume_mm3": 60684.082282628835,
+          "measured_floor_mm": 1.9999999999999982,
+          "volume_reduction_percent": 13.521830643358804,
+          "native_checks_passed": 11,
+          "meets_current_brief": true,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "260ed4eb2ef3f314146f61f86f98281e83ed9dbff72fa8b801caf234a94f9b5b",
+            "support.step": "9a0c50587bb7f762075af08c7f6aaa695b6ff97d2f7227e10f9d309fbd84d35e"
+          }
+        },
+        {
+          "candidate": "candidate-2",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 8.0,
+          "measured_volume_mm3": 64436.34770479752,
+          "measured_floor_mm": 3.9999999999999982,
+          "volume_reduction_percent": 8.174645146870562,
+          "native_checks_passed": 11,
+          "meets_current_brief": false,
+          "evidence": "new",
+          "native_file_sha256": {
+            "support.FCStd": "98ae4d859f1d22282aa81439704263e0d0767acbd3112a068e740309bdb201a5",
+            "support.step": "c49ccb101ace3534887d795bb1e778df02d84ca8ec8daaacf85c527cd62852f3"
+          }
+        }
+      ],
+      "recommended_candidate": "candidate-1",
+      "goal_met": true,
+      "status": "awaiting_review",
+      "requires_engineer_review": true,
+      "source_report_sha256": "24338a434bc2d9010c0756909f0d100da250367a8998364c7e2a114a545d2c9f"
+    },
+    {
+      "round": 2,
+      "submitted_at": "2026-10-20T21:38:18.615141+00:00",
+      "collected_at": "2026-10-20T21:42:27.179789+00:00",
+      "requirements": {
+        "available_stock_mm": [
+          12,
+          14,
+          16
+        ],
+        "minimum_floor_mm": 3,
+        "minimum_volume_reduction_percent": 10
+      },
+      "allocated_new_jobs": 0,
+      "new_native_jobs": 0,
+      "tool_calls": {
+        "get_result": 1
+      },
+      "workspace_commands_observed": 1,
+      "successful_python_commands": 1,
+      "candidates": [
+        {
+          "candidate": "candidate-2",
+          "stock_thickness_mm": 12.0,
+          "pocket_depth_mm": 8.0,
+          "measured_volume_mm3": 64436.34770479752,
+          "measured_floor_mm": 3.9999999999999982,
+          "volume_reduction_percent": 8.174645146870562,
+          "native_checks_passed": 11,
+          "meets_current_brief": false,
+          "evidence": "reused",
+          "native_file_sha256": {
+            "support.FCStd": "98ae4d859f1d22282aa81439704263e0d0767acbd3112a068e740309bdb201a5",
+            "support.step": "c49ccb101ace3534887d795bb1e778df02d84ca8ec8daaacf85c527cd62852f3"
+          }
+        }
+      ],
+      "recommended_candidate": null,
+      "goal_met": false,
+      "status": "awaiting_review",
+      "requires_engineer_review": true,
+      "source_report_sha256": "48cf1100c3c96af1f6403f5f46f596554e2a7a8384fb1ba5e3423310da7bcef2"
+    }
+  ],
+  "workspace_persistence": {
+    "checkpoint_at": "2026-10-20T16:50:20.682876+00:00",
+    "temporary_marker_control_confirmed_at": "2026-10-20T16:50:23.649536+00:00",
+    "stop_response_at": "2026-10-20T16:51:41.983611+00:00",
+    "restored_at": "2026-10-20T21:35:13.449627+00:00",
+    "pause_seconds_after_stop_response": 17011.466016,
+    "kernel_boot_id_changed": true,
+    "temporary_marker_discarded": true,
+    "persisted_proof": {
+      "size": 32,
+      "sha256": "147abeee81c1b8f848030dfb8ec88ab3015137c60e54f049fbdd05ed4dabc0a1",
+      "unchanged": true
+    },
+    "files": {
+      "PLAN.md": {
+        "before": {
+          "size": 603,
+          "sha256": "a1f385829b7bcd9544576555a443dc402c8de3280d6cc8c0d1631370d3d8f53b"
+        },
+        "restored": {
+          "size": 603,
+          "sha256": "a1f385829b7bcd9544576555a443dc402c8de3280d6cc8c0d1631370d3d8f53b"
+        },
+        "after_review": {
+          "size": 904,
+          "sha256": "8e90c0d6e1a8e24df523b4fe40c12b5d642ae78ac5aba21496a1dfbc20e2b419"
+        },
+        "updated_by_review": true
+      },
+      "comparison.json": {
+        "before": {
+          "size": 3421,
+          "sha256": "81b66da3565610d19e8d82a1a5ffa353979c7567bd1d0e5bb96641b8aa9a3503"
+        },
+        "restored": {
+          "size": 3421,
+          "sha256": "81b66da3565610d19e8d82a1a5ffa353979c7567bd1d0e5bb96641b8aa9a3503"
+        },
+        "after_review": {
+          "size": 3654,
+          "sha256": "814cc56909f8b2ae3847431ddcf7b587bac121dee8bb9f70ca08225a38cb163d"
+        },
+        "updated_by_review": true
+      },
+      "STUDY.md": {
+        "before": {
+          "size": 1118,
+          "sha256": "c61e390f191dde5cd4af9735e70b321531e94508c727323ec76721ed7d657374"
+        },
+        "restored": {
+          "size": 1118,
+          "sha256": "c61e390f191dde5cd4af9735e70b321531e94508c727323ec76721ed7d657374"
+        },
+        "after_review": {
+          "size": 1914,
+          "sha256": "f8189ef113b03d5222cca92fba2ddb0052cb86740206099084b2a61f06b25b15"
+        },
+        "updated_by_review": true
+      }
+    },
+    "review_files_checked_at": "2026-10-20T21:43:16.988399+00:00",
+    "source_snapshot_sha256": {
+      "workspace-restart-before.json": "eac3152bfac39ff219658d85cc3fb4eb792a541508e0c4c7817fe9c85a72b557",
+      "workspace-same-compute.json": "b1590699b20b5337464602ed2a9dc9d8ecb43b039defb7edefccf0712ebc6b61",
+      "runtime-restart-stop.json": "2ecde6ced9f08b89114a23eaba7e0470a675a162932090b99e798bfd5f5b45e4",
+      "workspace-restart-after.json": "9e6e7b6a2bcb78bdcb4dc9085e6d296aa5571809a590f93a851aacd30f6731c1",
+      "workspace-after-review.json": "f0bc3f8e0a14996662adf45ecefc59a5959ca63905a612ebeaf3509fc00a0a4c"
+    }
+  },
+  "lifecycle": {
+    "observed_at": "2026-10-20T21:49:05.114735+00:00",
+    "worker_state": "stopped",
+    "bma_session_state": "idle",
+    "runtime_stop_request_accepted": true,
+    "runtime_log_retention_days": 30,
+    "retained": [
+      "BMA session",
+      "Runtime definition",
+      "dedicated IAM roles",
+      "persistent workspace",
+      "CAD artifacts"
+    ]
+  },
+  "continuous_execution_qualified": false,
+  "filesystem_skills_qualified": false,
+  "evidence_note": "Portable summary of a live synthetic example. Candidate labels replace deployment-specific identifiers. Full BMA items, native artifacts, version receipts, independent workspace snapshots and deployment details remain in the operator's ignored .state directory.",
+  "qualification_limits": [
+    "Paused persistence and compute replacement were verified; exact stop latency and automatic idle expiry were not isolated.",
+    "Hours of continuous agent execution and reusable filesystem skills were not exercised.",
+    "The revised brief had no compliant prior candidate; another design round is needed.",
+    "Geometric fixture only; no structural, manufacturing or engineering approval.",
+    "Candidate quotas are checked after execution, not enforced as tool-side spending limits."
+  ]
+}

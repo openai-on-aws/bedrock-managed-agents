@@ -1,0 +1,42 @@
+name: CAD sample validation
+
+on:
+  pull_request:
+    paths:
+      - "samples/cad-workflow/**"
+      - ".github/workflows/cad-sample.yml"
+  push:
+    branches: [main]
+    paths:
+      - "samples/cad-workflow/**"
+      - ".github/workflows/cad-sample.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: samples/cad-workflow
+    env:
+      AWS_EC2_METADATA_DISABLED: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.3"
+      - name: Install locked dependencies
+        run: uv sync --frozen --python 3.12
+      - name: Install checksum-verified CloudFormation Guard
+        run: uv run --frozen python install_guard.py
+      - name: Run offline sample validation
+        run: uv run --frozen python deploy.py validate
+      - name: Verify the recorded CAD reference
+        run: uv run --frozen python evidence.py verify-reference

@@ -54,7 +54,7 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 ├── .agents/
 │   └── skills/
 │       └── bma-sessions/         # Codex skill: drive the labs conversationally
-└── modules/
+├── modules/
     ├── 01-bma-environment-none/  # Module 1: agents with environment=none
     │   ├── README.md             # module overview + lab index
     │   ├── 00-prerequisites.md   # install, credentials, IAM setup
@@ -85,6 +85,8 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
             ├── lab-02-interpret-results/
             ├── lab-03-continue-session/
             └── lab-04-delete-session/
+└── samples/
+    └── cad-workflow/             # BMA + native FreeCAD tools, verification and AWS deployment
 ```
 
 ## Modules
@@ -93,6 +95,12 @@ See [BMA documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bed
 |---|---|---|---|
 | [01 — BMA with `environment=none`](modules/01-bma-environment-none/README.md) | Create a session, interpret results and items, prove durable server-side session state, list and delete sessions, and (stretch) wire in AgentCore Gateway MCP tools — all without an execution environment. | Beginner | ~30–60 min |
 | [02 — BMA with AgentCore Runtime](modules/02-bma-agentcore-runtime/README.md) | Run agents in a real execution environment where the agent executes commands in a managed microVM: run on a Runtime, read `command_execution` items, continue a session as the workspace persists, and clean up. | Intermediate | ~30–60 min |
+
+## Samples
+
+| Sample | What it demonstrates |
+| --- | --- |
+| [CAD workflows with FreeCAD](samples/cad-workflow/README.md) | Build and verify native FreeCAD parts, then run a resumable BMA study that compares candidates and responds to engineer feedback. Includes AWS deployment, checked artifacts, timeout recovery and an optional AgentCore execution workspace. CATIA V6 is an extension path. |
 
 ## Use it from Codex (optional)
 

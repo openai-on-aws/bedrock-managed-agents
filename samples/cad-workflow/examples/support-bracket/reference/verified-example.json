@@ -1,0 +1,220 @@
+{
+  "schema_version": "bma-cad/reference/v1",
+  "status": "passed",
+  "example_id": "support-bracket",
+  "verified_at": "2026-10-19T20:11:41.869428+00:00",
+  "region": "us-east-1",
+  "parameters": {
+    "stock_thickness_mm": 14,
+    "pocket_depth_mm": 12
+  },
+  "timings": {
+    "e2e_seconds": 283.212,
+    "native_seconds": 16.612,
+    "deployment_included": false
+  },
+  "source": {
+    "worker_sha256": "4fb1a687a3d23ec036928d3dffdf94fa64f11f1c1040bda2ad642b4acf303537",
+    "example_sha256": "0a9ec82b3701df7fc8592a98e4553780371921d9d0fbf7c678e0d9399550fc51",
+    "client_sha256": {
+      "e2e.py": "64179f5633d955045f55bb9f2451fd5bd9271d425948b0e30a45da9351746994",
+      "run.py": "cd5e6a6ee5c6f08b2e4d4b99a6e01661f96d3862b004d96bb2e20a71deda624d",
+      "audit.py": "9678981504c1dbe6db37e4a851384c10213a52f8cb47833f32571f377521c132",
+      "cleanup.py": "173a90e0c77d987e159d060fc9c9164968193520e02924c305d83c1d6d555e06",
+      "deploy.py": "b9477ec3ed003183b6f1f98a7eb793ef733bddfb8e54366b597013c1ac70b1f1",
+      "ops/freecad_audit.py": "2aa8a8b79537076b467c472f3e55a052b7156463eee95631283020905cb1ab62",
+      "cad_workflow/example.py": "3ad12b14d508e031f6bc4b592466166ff7746d7b0b15956bd73f599e2e9e1d92",
+      "schemas/example.schema.json": "a0e99bdb68d90b356377cb714ffde3c15c4a4da573a81f2201d126fadd93df96",
+      "schemas/e2e-report.schema.json": "d3b5d05e235a3ca986417a035fa239bd7404d6a0807be0b9db03ddef67ea49d7",
+      "pyproject.toml": "86aae9f8bb75a8d4a4030afd2465a20c81be3aa59cbd71df26a23c294a92f185",
+      "uv.lock": "f64a0cac6c660875517cb442de66df1a397c1a0ff8e16e59229c74053d485d8c"
+    }
+  },
+  "native": {
+    "accepted": true,
+    "backend": "freecad",
+    "checks": [
+      {
+        "name": "native_solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "name": "native_features",
+        "passed": true
+      },
+      {
+        "name": "constrained_sketches",
+        "passed": true
+      },
+      {
+        "depth_mm": 12.0,
+        "name": "blind_pocket",
+        "passed": true,
+        "type": "Length"
+      },
+      {
+        "measured_mm": 14.0,
+        "name": "stock_thickness",
+        "passed": true
+      },
+      {
+        "bounds": [
+          0.0,
+          0.0,
+          0.0,
+          160.0,
+          42.0,
+          14.0
+        ],
+        "name": "units_and_envelope",
+        "passed": true,
+        "units": "mm"
+      },
+      {
+        "added_mm3": 0.0,
+        "missing_mm3": 0.0,
+        "name": "material_and_mounting_interfaces",
+        "passed": true
+      },
+      {
+        "expected_mm3": 70172.71842603883,
+        "measured_mm3": 70172.71842603885,
+        "name": "analytic_volume",
+        "passed": true
+      },
+      {
+        "measured_mm": 2.0,
+        "minimum_mm": 2,
+        "name": "residual_floor",
+        "passed": true
+      },
+      {
+        "difference_mm3": 0.0,
+        "name": "step_roundtrip",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "changed_difference_mm3": 0.0,
+        "name": "native_parameter_roundtrip",
+        "passed": true,
+        "restored_difference_mm3": 0.0,
+        "tested_thickness_mm": [
+          14.0,
+          15.0,
+          14.0
+        ]
+      }
+    ],
+    "freecad": [
+      "1",
+      "1",
+      "4",
+      "20260928 (Git shallow)",
+      "Unknown",
+      "2026/09/28 13:46:34",
+      "(HEAD detached at 4fd3bf320)",
+      "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+    ],
+    "input_sha256": {
+      "support.FCStd": "508bfc4f282c82b70dd0d396e7666d9e5ae768eec0bcd18e48fb832d2d4d321d",
+      "support.step": "8e3bd915adc00cd910aceeccf7c9ca518786df0606c502000fb2c987896b28ec"
+    },
+    "occt": "7.8.1",
+    "schema": "bma-cad/support/v1"
+  },
+  "bma": {
+    "model": "openai.gpt-6.1-sol",
+    "status": "completed",
+    "elapsed_seconds": 79.106,
+    "tools": [
+      {
+        "name": "cad___create_support",
+        "status": "completed"
+      },
+      {
+        "name": "cad___get_result",
+        "status": "completed"
+      }
+    ],
+    "usage_reported": false
+  },
+  "audit": {
+    "passed": true,
+    "elapsed_seconds": 42.241,
+    "verifier_sha256": "d422863564b9fe975c8d5a451d930de3bf9d1a48bd0c1b4dd940dcf6cae737b1",
+    "audit_sha256": "2aa8a8b79537076b467c472f3e55a052b7156463eee95631283020905cb1ab62",
+    "cases": [
+      {
+        "case": "control",
+        "passed": true,
+        "failed_checks": []
+      },
+      {
+        "case": "through-pocket",
+        "passed": true,
+        "failed_checks": [
+          "blind_pocket",
+          "material_and_mounting_interfaces",
+          "analytic_volume",
+          "residual_floor",
+          "native_parameter_roundtrip"
+        ]
+      },
+      {
+        "case": "thin-floor",
+        "passed": true,
+        "failed_checks": [
+          "blind_pocket",
+          "material_and_mounting_interfaces",
+          "analytic_volume",
+          "residual_floor",
+          "native_parameter_roundtrip"
+        ]
+      },
+      {
+        "case": "shifted-bore",
+        "passed": true,
+        "failed_checks": [
+          "material_and_mounting_interfaces",
+          "native_parameter_roundtrip"
+        ]
+      },
+      {
+        "case": "stale-step",
+        "passed": true,
+        "failed_checks": [
+          "step_roundtrip"
+        ]
+      }
+    ]
+  },
+  "logs": {
+    "broker": 1,
+    "worker": 4
+  },
+  "cleanup": {
+    "session_deleted": true,
+    "worker_state": "stopped",
+    "artifacts_retained": true
+  },
+  "files": {
+    "support.FCStd": {
+      "sha256": "508bfc4f282c82b70dd0d396e7666d9e5ae768eec0bcd18e48fb832d2d4d321d",
+      "bytes": 26751
+    },
+    "support.step": {
+      "sha256": "8e3bd915adc00cd910aceeccf7c9ca518786df0606c502000fb2c987896b28ec",
+      "bytes": 16680
+    },
+    "preview.png": {
+      "sha256": "13e9e7b6fbdbc067f5ed8895a3f38b1fca11e9042da237e40bbe8100eb3abb9e",
+      "bytes": 7591
+    },
+    "checks.json": {
+      "sha256": "d240637e026cd62a9dfc607a9140789139ac07d927586910e65ef2cfb5474779",
+      "bytes": 1286
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bma-cad:study-report:v1",
+  "title": "Collected BMA design-study round",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "study_id", "round", "title", "collected_at", "brief", "baseline_volume_mm3", "candidates", "recommendation", "goal_met", "environment_type", "workspace_commands_observed", "worker_sha256", "client_sha256", "session_client_sha256"],
+  "properties": {
+    "schema_version": {"const": "bma-cad/study-report/v1"},
+    "status": {"const": "awaiting_review"},
+    "study_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "round": {"type": "integer", "minimum": 1, "maximum": 5},
+    "title": {"type": "string"},
+    "collected_at": {"type": "string", "format": "date-time"},
+    "brief": {"type": "object"},
+    "baseline_volume_mm3": {"type": "number", "exclusiveMinimum": 0},
+    "goal_met": {"type": "boolean"},
+    "environment_type": {"enum": ["none", "aws_bedrock_agentcore"]},
+    "workspace_commands_observed": {"type": "integer", "minimum": 0},
+    "worker_sha256": {"$ref": "#/$defs/sha256"},
+    "client_sha256": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}},
+    "session_client_sha256": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}},
+    "recommendation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["recommended_job_id", "rationale", "requires_engineer_review"],
+      "properties": {
+        "recommended_job_id": {"type": ["string", "null"], "pattern": "^[a-f0-9]{32}$"},
+        "rationale": {"type": "string", "minLength": 1},
+        "requires_engineer_review": {"const": true}
+      }
+    },
+    "candidates": {
+      "type": "array", "minItems": 1, "maxItems": 20,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["job_id", "parameters", "native_accepted", "volume_mm3", "floor_mm", "volume_reduction_percent", "meets_brief", "created_this_round"],
+        "properties": {
+          "job_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+          "parameters": {"type": "object"},
+          "native_accepted": {"type": "boolean"},
+          "created_this_round": {"type": "boolean"},
+          "volume_mm3": {"type": ["number", "null"], "exclusiveMinimum": 0},
+          "floor_mm": {"type": ["number", "null"]},
+          "volume_reduction_percent": {"type": ["number", "null"]},
+          "meets_brief": {"type": "boolean"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
