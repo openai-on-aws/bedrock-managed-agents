@@ -79,7 +79,7 @@ new terminal with `source .venv/bin/activate`, or `.\.venv\Scripts\Activate.ps1`
 on Windows), run the lab script directly. There are no per-lab wrapper scripts.
 
 ```bash
-python labs/lab-01-create-session/create_session.py "Hello, BMA!"
+python labs/lab-01-create-session/create_session.py "Hello, BMA\!"
 ```
 
 Each lab script imports the shared `bma_common.py` from the module root

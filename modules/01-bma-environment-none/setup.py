@@ -13,7 +13,7 @@ changes. After it finishes, activate the venv and run a lab script directly:
 
     source .venv/bin/activate                 # macOS / Linux
     .\\.venv\\Scripts\\Activate.ps1             # Windows (PowerShell)
-    python labs/lab-01-create-session/create_session.py "Hello, BMA!"
+    python labs/lab-01-create-session/create_session.py "Hello, BMA\\!"
 
 Usage:
     python setup.py                 # create or reuse ./.venv, install deps
@@ -152,7 +152,7 @@ def main() -> int:
                 "  1. Activate the virtual environment:",
                 f"       {activation_command()}",
                 "  2. Run a lab script, for example:",
-                '       python labs/lab-01-create-session/create_session.py "Hello, BMA!"',
+                '       python labs/lab-01-create-session/create_session.py "Hello, BMA\\!"',
                 "",
                 "Each lab has its own README.md explaining what to run and what to expect.",
             ]
